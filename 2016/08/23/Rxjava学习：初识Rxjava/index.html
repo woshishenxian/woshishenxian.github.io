@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Rxjava RxAndroid," />
+  <meta name="keywords" content="Rxjava,RxAndroid," />
 
 
 
@@ -84,28 +84,28 @@
 
 
 
-<meta name="description" content="##前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
+<meta name="description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
 
 先谈谈我对Rxjava的认识
 
-首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每">
+首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rxjava学习：初识Rxjava">
 <meta property="og:url" content="http://woshishenxian.github.io/2016/08/23/Rxjava学习：初识Rxjava/index.html">
-<meta property="og:site_name" content="江户川_南柯">
-<meta property="og:description" content="##前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
+<meta property="og:site_name" content="南柯Nanke">
+<meta property="og:description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
 
 先谈谈我对Rxjava的认识
 
-首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每">
-<meta property="og:updated_time" content="2016-08-23T06:05:45.000Z">
+首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个">
+<meta property="og:updated_time" content="2016-08-24T09:44:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rxjava学习：初识Rxjava">
-<meta name="twitter:description" content="##前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
+<meta name="twitter:description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
 
 先谈谈我对Rxjava的认识
 
-首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每">
+首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个">
 
 
 
@@ -128,7 +128,7 @@
 
   <link rel="canonical" href="http://woshishenxian.github.io/2016/08/23/Rxjava学习：初识Rxjava/"/>
 
-  <title> Rxjava学习：初识Rxjava | 江户川_南柯 </title>
+  <title> Rxjava学习：初识Rxjava | 南柯Nanke </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -159,7 +159,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">江户川_南柯</span>
+      <span class="site-title">南柯Nanke</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -316,6 +316,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Rxjava学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Rxjava学习</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -354,7 +373,7 @@
       
 
       
-        <p>##前言<br>在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。</p>
 <blockquote>
 <p><em>先谈谈我对Rxjava的认识</em></p>
 </blockquote>
@@ -367,12 +386,10 @@
 <blockquote>
 <p><em>下面就来简单的讲一下Rxjava的使用</em></p>
 </blockquote>
-<p>###1.引入RxJava</p>
-<p>RxJava 支持Java 6或者更新的版本,引入前请更新到Java 6或以上版本。</p>
+<h3 id="引入RxJava"><a href="#引入RxJava" class="headerlink" title="引入RxJava"></a>引入RxJava</h3><p>RxJava 支持Java 6或者更新的版本,引入前请更新到Java 6或以上版本。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">compile &apos;io.reactivex:rxandroid:1.2.1&apos;</div><div class="line">compile &apos;io.reactivex:rxjava:1.1.8&apos;</div></pre></td></tr></table></figure>
 <p>RxAndroid 是 Android 开发中使用 RxJava 必备元素，虽然里面只是提供了简单的两个功能。 AndroidSchedulers.mainThread()<br>和 AndroidSchedulers.handlerThread(handler) ，但这确是 Android 开发中最核心的功能之一。</p>
-<p>###2.Rxjava基本概念</p>
-<p>下面来谈谈Rxjava几个基本概念的介绍:</p>
+<h3 id="Rxjava基本概念"><a href="#Rxjava基本概念" class="headerlink" title="Rxjava基本概念"></a>Rxjava基本概念</h3><p>下面来谈谈Rxjava几个基本概念的介绍:</p>
 <ul>
 <li>Observer（观察者）</li>
 <li>Observable （被观察者）</li>
@@ -410,8 +427,7 @@
 <blockquote>
 <p>subscribe(<em> observer </em>) （订阅）<br>创建Observable和Observer之后，通过subscribe()方法将它们结合起来。</p>
 </blockquote>
-<p>###小结</p>
-<p>对Rxjava作了一个简单的介绍，从基础知识开始讲起可能比较枯燥，没有多少实践，但是基础的重要性不言而喻，尤其对于Rxjava来说，其代码的编写习惯与我们平常不太一样，其链式的风格更加简洁，当你慢慢习惯，你将领会其独特的魅力。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>对Rxjava作了一个简单的介绍，从基础知识开始讲起可能比较枯燥，没有多少实践，但是基础的重要性不言而喻，尤其对于Rxjava来说，其代码的编写习惯与我们平常不太一样，其链式的风格更加简洁，当你慢慢习惯，你将领会其独特的魅力。</p>
 
       
     </div>
@@ -434,7 +450,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Rxjava-RxAndroid/" rel="tag">#Rxjava RxAndroid</a>
+            <a href="/tags/Rxjava/" rel="tag">#Rxjava</a>
+          
+            <a href="/tags/RxAndroid/" rel="tag">#RxAndroid</a>
           
         </div>
       
@@ -514,8 +532,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://www.jianshu.com/assets/default_avatar/11-b5e5659ac49eda9d6b2249ac81f94fda.jpg"
-               alt="江户川_南柯" />
-          <p class="site-author-name" itemprop="name">江户川_南柯</p>
+               alt="南柯Nanke" />
+          <p class="site-author-name" itemprop="name">南柯Nanke</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
@@ -527,11 +545,18 @@
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -580,7 +605,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入RxJava"><span class="nav-number">2.</span> <span class="nav-text">引入RxJava</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rxjava基本概念"><span class="nav-number">3.</span> <span class="nav-text">Rxjava基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
           </div>
         </section>
@@ -603,7 +628,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">江户川_南柯</span>
+  <span class="author" itemprop="copyrightHolder">南柯Nanke</span>
 </div>
 
 <div class="powered-by">
