@@ -84,23 +84,17 @@
 
 
 
-<meta name="description" content="前言在 Rxjava学习:初识Rxjava 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。
-Rxjava的具体使用下面还是从几个基本概念开始入手：
-创建Observer作为Rxjava处理数据的最终出口，首先我们需要对其进行实现。">
+<meta name="description" content="前言在 Rxjava学习:初识Rxjava 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rxjava学习：谈谈Rxjava的使用">
 <meta property="og:url" content="http://woshishenxian.github.io/2016/08/25/Rxjava学习：谈谈Rxjava的使用/index.html">
 <meta property="og:site_name" content="南柯Nanke">
-<meta property="og:description" content="前言在 Rxjava学习:初识Rxjava 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。
-Rxjava的具体使用下面还是从几个基本概念开始入手：
-创建Observer作为Rxjava处理数据的最终出口，首先我们需要对其进行实现。">
+<meta property="og:description" content="前言在 Rxjava学习:初识Rxjava 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。">
 <meta property="og:image" content="http://woshishenxian.github.io/imgs/8c91ad2096d7aaea9dc52dc4c86a8d58.jpg">
-<meta property="og:updated_time" content="2016-08-25T09:50:22.000Z">
+<meta property="og:updated_time" content="2016-09-02T08:57:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rxjava学习：谈谈Rxjava的使用">
-<meta name="twitter:description" content="前言在 Rxjava学习:初识Rxjava 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。
-Rxjava的具体使用下面还是从几个基本概念开始入手：
-创建Observer作为Rxjava处理数据的最终出口，首先我们需要对其进行实现。">
+<meta name="twitter:description" content="前言在 Rxjava学习:初识Rxjava 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。">
 <meta name="twitter:image" content="http://woshishenxian.github.io/imgs/8c91ad2096d7aaea9dc52dc4c86a8d58.jpg">
 
 
@@ -370,9 +364,10 @@ Rxjava的具体使用下面还是从几个基本概念开始入手：
 
       
         <p><img src="/imgs/8c91ad2096d7aaea9dc52dc4c86a8d58.jpg" alt="配图"></p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在 <a href="http://www.jianshu.com/p/264a1322669a" target="_blank" rel="external">Rxjava学习:初识Rxjava</a> 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在 <a href="http://www.jianshu.com/p/264a1322669a" target="_blank" rel="external">Rxjava学习:初识Rxjava</a> 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。<br><a id="more"></a></p>
 <h3 id="Rxjava的具体使用"><a href="#Rxjava的具体使用" class="headerlink" title="Rxjava的具体使用"></a>Rxjava的具体使用</h3><p>下面还是从几个基本概念开始入手：</p>
-<h4 id="创建Observer"><a href="#创建Observer" class="headerlink" title="创建Observer"></a>创建Observer</h4><p>作为Rxjava处理数据的最终出口，首先我们需要对其进行实现。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Observer&lt;String&gt; observer = new Observer&lt;String&gt;() &#123;</div><div class="line">    @Override</div><div class="line">    public void onNext(String s) &#123;</div><div class="line">        Log.d(tag, &quot;Item: &quot; + s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onCompleted() &#123;</div><div class="line">        Log.d(tag, &quot;Completed!&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable e) &#123;</div><div class="line">        Log.d(tag, &quot;Error!&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h4 id="创建Observer"><a href="#创建Observer" class="headerlink" title="创建Observer"></a>创建Observer</h4><p>作为Rxjava处理数据的最终出口，首先我们需要对其进行实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Observer&lt;String&gt; observer = new Observer&lt;String&gt;() &#123;</div><div class="line">    @Override</div><div class="line">    public void onNext(String s) &#123;</div><div class="line">        Log.d(tag, &quot;Item: &quot; + s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onCompleted() &#123;</div><div class="line">        Log.d(tag, &quot;Completed!&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onError(Throwable e) &#123;</div><div class="line">        Log.d(tag, &quot;Error!&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>除了 Observer 接口之外，RxJava 还提供了一个实现了 Observer 的抽象类：Subscriber。实际上在Observer接口的使用过程中，也是将其转换成Subscriber 来使用。<br> 下面我们来看一下订阅方法的源码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public final Subscription subscribe(final Observer&lt;? super T&gt; observer) &#123;</div><div class="line">    if (observer instanceof Subscriber) &#123;</div><div class="line">        return subscribe((Subscriber&lt;? super T&gt;)observer);</div><div class="line">    &#125;</div><div class="line">    if (observer == null) &#123;</div><div class="line">        throw new NullPointerException(&quot;observer is null&quot;);</div><div class="line">    &#125;</div><div class="line">    return subscribe(new ObserverSubscriber&lt;T&gt;(observer));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>可以看到 如果是 <strong>Subscriber</strong> 将直接被使用，如果是<strong>observer</strong>将被转换为 <strong>ObserverSubscriber</strong> 来使用。这里提到了<strong> ObserverSubscriber </strong>类 我们再来看一下 其源码，就会很清晰的理解这个过程了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public final class ObserverSubscriber&lt;T&gt; extends Subscriber&lt;T&gt; &#123;</div><div class="line">    final Observer&lt;? super T&gt; observer;</div><div class="line">    public ObserverSubscriber(Observer&lt;? super T&gt; observer) &#123;</div><div class="line">        this.observer = observer;</div><div class="line">    &#125;</div><div class="line">        @Override</div><div class="line">    public void onNext(T t) &#123;</div><div class="line">        observer.onNext(t);</div><div class="line">    &#125;</div><div class="line">        @Override</div><div class="line">    public void onError(Throwable e) &#123;</div><div class="line">        observer.onError(e);</div><div class="line">    &#125;</div><div class="line">        @Override</div><div class="line">    public void onCompleted() &#123;</div><div class="line">        observer.onCompleted();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>当然Subscriber 对 Observer 接口也进行了一些扩展。 下面提一下 Subscriber 与 Observer 使用上的不同：</p>
@@ -503,7 +498,7 @@ Rxjava的具体使用下面还是从几个基本概念开始入手：
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -511,7 +506,7 @@ Rxjava的具体使用下面还是从几个基本概念开始入手：
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

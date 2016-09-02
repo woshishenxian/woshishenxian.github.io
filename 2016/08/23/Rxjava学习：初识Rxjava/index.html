@@ -84,28 +84,16 @@
 
 
 
-<meta name="description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
-
-先谈谈我对Rxjava的认识
-
-首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个">
+<meta name="description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rxjava学习：初识Rxjava">
 <meta property="og:url" content="http://woshishenxian.github.io/2016/08/23/Rxjava学习：初识Rxjava/index.html">
 <meta property="og:site_name" content="南柯Nanke">
-<meta property="og:description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
-
-先谈谈我对Rxjava的认识
-
-首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个">
-<meta property="og:updated_time" content="2016-08-24T09:44:51.000Z">
+<meta property="og:description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。">
+<meta property="og:updated_time" content="2016-09-02T08:57:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rxjava学习：初识Rxjava">
-<meta name="twitter:description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。
-
-先谈谈我对Rxjava的认识
-
-首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个">
+<meta name="twitter:description" content="前言在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。">
 
 
 
@@ -373,11 +361,11 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在过去的一年里，出现大量优秀的框架，火的不行，我也是从网上了解到Rx，特意搜索了相关文章，我也是通过它初步了解了Rxjava, 通过使用也慢慢领会到了其独特的魅力。<br><a id="more"></a></p>
 <blockquote>
 <p><em>先谈谈我对Rxjava的认识</em></p>
 </blockquote>
-<p>首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个方法就可以迅速获得同样的效果。<br><a id="more"></a></p>
+<p>首先说一下使用的感受：作为一只程序猿，最烦的就是那无穷无尽的for循环，以及那看起来都有点丧心病狂的 格式缩进，而如果使用Rxjava来进行数据处理的话，完全没有这方面的问题，你只要依次实现每一个方法就可以迅速获得同样的效果。</p>
 <p>这里借鉴一下 <a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">给 Android 开发者的 RxJava 详解</a>一文中的例子，来给大家说明一下： </p>
 <p><em>假设有这样一个需求：界面上有一个自定义的视图 imageCollectorView ，它的作用是显示多张图片，并能使用 addImage(Bitmap) 方法来任意增加显示的图片。现在需要程序将一个给出的目录数组 File[] folders 中每个目录下的 png 图片都加载出来并显示在 imageCollectorView 中。需要注意的是，由于读取图片的这一过程较为耗时，需要放在后台执行，而图片的显示则必须在 UI 线程执行。常用的实现方式有多种，我这里贴出其中一种：</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">new Thread() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        super.run();</div><div class="line">        for (File folder : folders) &#123;</div><div class="line">            File[] files = folder.listFiles();</div><div class="line">            for (File file : files) &#123;</div><div class="line">                if (file.getName().endsWith(&quot;.png&quot;)) &#123;</div><div class="line">                    final Bitmap bitmap = getBitmapFromFile(file);</div><div class="line">                    getActivity().runOnUiThread(new Runnable() &#123;</div><div class="line">                        @Override</div><div class="line">                        public void run() &#123;</div><div class="line">                            imageCollectorView.addImage(bitmap);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;.start();</div></pre></td></tr></table></figure>
@@ -543,7 +531,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -551,7 +539,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

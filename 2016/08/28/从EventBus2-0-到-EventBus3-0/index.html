@@ -84,21 +84,18 @@
 
 
 
-<meta name="description" content="前言：以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。开讲之前先付一下源码地址：https://github.com/greenrobot/EventBus
-介绍一下：EventBus是由大名鼎鼎的greenrobot出品的一个用于Android中事件发">
+<meta name="description" content="前言：以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。开讲之前先付一下源码地址：https://github.com/greenrobot/EventBus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从EventBus2.0 到 EventBus3.0">
 <meta property="og:url" content="http://woshishenxian.github.io/2016/08/28/从EventBus2-0-到-EventBus3-0/index.html">
 <meta property="og:site_name" content="南柯Nanke">
-<meta property="og:description" content="前言：以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。开讲之前先付一下源码地址：https://github.com/greenrobot/EventBus
-介绍一下：EventBus是由大名鼎鼎的greenrobot出品的一个用于Android中事件发">
+<meta property="og:description" content="前言：以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。开讲之前先付一下源码地址：https://github.com/greenrobot/EventBus">
 <meta property="og:image" content="http://woshishenxian.github.io/imgs/eventbus_01.jpg">
 <meta property="og:image" content="http://woshishenxian.github.io/imgs/EventBus-Publish-Subscribe.png">
-<meta property="og:updated_time" content="2016-08-28T06:53:04.000Z">
+<meta property="og:updated_time" content="2016-09-02T08:57:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从EventBus2.0 到 EventBus3.0">
-<meta name="twitter:description" content="前言：以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。开讲之前先付一下源码地址：https://github.com/greenrobot/EventBus
-介绍一下：EventBus是由大名鼎鼎的greenrobot出品的一个用于Android中事件发">
+<meta name="twitter:description" content="前言：以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。开讲之前先付一下源码地址：https://github.com/greenrobot/EventBus">
 <meta name="twitter:image" content="http://woshishenxian.github.io/imgs/eventbus_01.jpg">
 
 
@@ -368,8 +365,8 @@
 
       
         <p><img src="/imgs/eventbus_01.jpg" alt="配图"></p>
-<h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。<br>开讲之前先付一下源码地址：<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="external">https://github.com/greenrobot/EventBus</a></p>
-<h3 id="介绍一下："><a href="#介绍一下：" class="headerlink" title="介绍一下："></a>介绍一下：</h3><p>EventBus是由大名鼎鼎的greenrobot出品的一个用于Android中事件发布/订阅的库。<a id="more"></a>简单点说就是用于Fragment，Activity，Service，线程之间进行数据传递，它为开发者提供除了 intent、handler、boardcast这几种传递数据的方式之外的一种选择，其优点在于 几乎不怎么消化资源，并且代码优雅简洁。</p>
+<h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。<br>开讲之前先付一下源码地址：<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="external">https://github.com/greenrobot/EventBus</a><br><a id="more"></a></p>
+<h3 id="介绍一下："><a href="#介绍一下：" class="headerlink" title="介绍一下："></a>介绍一下：</h3><p>EventBus是由大名鼎鼎的greenrobot出品的一个用于Android中事件发布/订阅的库。简单点说就是用于Fragment，Activity，Service，线程之间进行数据传递，它为开发者提供除了 intent、handler、boardcast这几种传递数据的方式之外的一种选择，其优点在于 几乎不怎么消化资源，并且代码优雅简洁。</p>
 <h3 id="EventBus-的组成"><a href="#EventBus-的组成" class="headerlink" title="EventBus 的组成"></a>EventBus 的组成</h3><p><img src="/imgs/EventBus-Publish-Subscribe.png" alt="EventBus-Publish-Subscribe"></p>
 <p>从上图我们可以看到，EventBus 作为事件总线，有3个重要做成部分：</p>
 <ul>
@@ -436,6 +433,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/02/Retrofit2-1官方文档的翻译/" rel="prev" title="Retrofit2.1官方文档的翻译">
+                Retrofit2.1官方文档的翻译 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -507,7 +508,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -515,7 +516,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
