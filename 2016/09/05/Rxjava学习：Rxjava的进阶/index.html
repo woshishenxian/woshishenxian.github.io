@@ -84,24 +84,18 @@
 
 
 
-<meta name="description" content="前言最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。&amp;lt; —- more—-&amp;gt;
-
-线程控制 —— Scheduler线程的控制也是Rxjava种很重要的一块，Rxjava在设计上，针对数据操作的性质作了考">
+<meta name="description" content="前言最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rxjava学习：Rxjava的进阶">
 <meta property="og:url" content="http://woshishenxian.github.io/2016/09/05/Rxjava学习：Rxjava的进阶/index.html">
 <meta property="og:site_name" content="南柯Nanke">
-<meta property="og:description" content="前言最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。&amp;lt; —- more—-&amp;gt;
-
-线程控制 —— Scheduler线程的控制也是Rxjava种很重要的一块，Rxjava在设计上，针对数据操作的性质作了考">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-10860d6df36da9ef.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-09-05T07:58:17.000Z">
+<meta property="og:description" content="前言最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。">
+<meta property="og:image" content="http://woshishenxian.github.io/imgs/4c1c8e5bfd6663f788acb9a9665f3ffc.jpg">
+<meta property="og:updated_time" content="2016-09-05T08:03:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rxjava学习：Rxjava的进阶">
-<meta name="twitter:description" content="前言最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。&amp;lt; —- more—-&amp;gt;
-
-线程控制 —— Scheduler线程的控制也是Rxjava种很重要的一块，Rxjava在设计上，针对数据操作的性质作了考">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2149115-10860d6df36da9ef.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="前言最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。">
+<meta name="twitter:image" content="http://woshishenxian.github.io/imgs/4c1c8e5bfd6663f788acb9a9665f3ffc.jpg">
 
 
 
@@ -369,8 +363,8 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。<br>&lt; —- more—-&gt;</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2149115-10860d6df36da9ef.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Rxjava学习：Rxjava的进阶"></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。<br><a id="more"></a></p>
+<p><img src="/imgs/4c1c8e5bfd6663f788acb9a9665f3ffc.jpg" alt="Rxjava学习：Rxjava的进阶"></p>
 <h3 id="线程控制-——-Scheduler"><a href="#线程控制-——-Scheduler" class="headerlink" title="线程控制 —— Scheduler"></a>线程控制 —— Scheduler</h3><p>线程的控制也是Rxjava种很重要的一块，Rxjava在设计上，针对数据操作的性质作了考虑，由于不同的操作所需要的线程要求不同，这样就需要 Scheduler（调度器）。</p>
 <p>默认情况下的Rxjava是不会对线程进行变换的，也就是说，事件发生在哪个线程，最终就会运行在哪个线程。</p>
 <p>先来看看Scheduler类 API中提供的线程选择：</p>

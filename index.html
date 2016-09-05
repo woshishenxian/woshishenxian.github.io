@@ -363,33 +363,12 @@
 
       
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。<br>&lt; —- more—-&gt;</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2149115-10860d6df36da9ef.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Rxjava学习：Rxjava的进阶"></p>
-<h3 id="线程控制-——-Scheduler"><a href="#线程控制-——-Scheduler" class="headerlink" title="线程控制 —— Scheduler"></a>线程控制 —— Scheduler</h3><p>线程的控制也是Rxjava种很重要的一块，Rxjava在设计上，针对数据操作的性质作了考虑，由于不同的操作所需要的线程要求不同，这样就需要 Scheduler（调度器）。</p>
-<p>默认情况下的Rxjava是不会对线程进行变换的，也就是说，事件发生在哪个线程，最终就会运行在哪个线程。</p>
-<p>先来看看Scheduler类 API中提供的线程选择：</p>
-<ul>
-<li><p>Schedulers.immediate(): 默认的 Scheduler，在当前线程立即开始执行任务。</p>
-</li>
-<li><p>Schedulers.newThread(): 为每个任务创建一个新线程。</p>
-</li>
-<li><p>Schedulers.io(): 。用于IO密集型任务，如对文件的读写、数据库的操作、网络的访问等，这个调度器的线程池会根据需要增长；对于普通的计算任务，使用Schedulers.computation()；Schedulers.io( )默认是一个CachedThreadScheduler，很像一个有线程缓存的新线程调度器。</p>
-</li>
-<li><p>Schedulers.computation(): 计算所使用的 Scheduler。如事件循环或和回调处理，不要用于IO操作(IO操作请使用Schedulers.io())；默认线程数等于处理器的数量。</p>
-</li>
-<li><p>另外， 对于Android 还提供一个专用的 AndroidSchedulers.mainThread()，它指定的操作将在 Android 主线程运行。</p>
-</li>
-</ul>
-<p>对于android来说，有了以上几个基本够用了，Rxjava提供了subscribeOn() 和 observeOn() 这两个方法来对线程进行控制。</p>
-<ul>
-<li>subscribeOn() ：用来指定subscribe()方法发生的线程，通常 只需调用一次,位置则随意。</li>
-<li>observeOn()：用来指定其接下来的方法的回调发生的线程。<br>举个例子解释一下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Observable.just(1, 2, 3, 4) // IO 线程，由 subscribeOn() 指定</div><div class="line">    .subscribeOn(Schedulers.io())</div><div class="line">    .observeOn(Schedulers.newThread())</div><div class="line">    .map(mapOperator) // 新线程，由 observeOn() 指定</div><div class="line">    .observeOn(Schedulers.io())</div><div class="line">    .map(mapOperator2) // IO 线程，由 observeOn() 指定</div><div class="line">    .observeOn(AndroidSchedulers.mainThread) </div><div class="line">    .subscribe(subscriber);  // Android 主线程，由 observeOn() 指定</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>由 subscribeOn(Schedulers.io()) 指定 subscribe() 最终将发生在 io线程中，而observeOn(AndroidSchedulers.mainThread) 则表示 subscriber 的方法将发生在 主线程 中。 在来看一下，observeOn(Schedulers.newThread()) 在表示下面的方法 map(mapOperator) 中，mapOperator任务将 发生在一个新线程中，mapOperator2 发生在io线程中。</p>
-
-          
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/05/Rxjava学习：Rxjava的进阶/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
