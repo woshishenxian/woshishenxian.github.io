@@ -84,12 +84,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="南柯Nanke">
-<meta property="og:url" content="https://woshishenxian.github.io/index.html">
+<meta name="description" content="前言内存泄露在开发工程中是一个需要重视的问题，但是由于内存泄露问题对开发人员的经验和开发意识有较高的要求，因此这也是开发人员最容易犯的错误之一。内存泄露的优化分为两个方面，一方面是在开发过程中避免写出有内存泄露的代码，另一方面是用过一些分析工具比如MAT来找出潜在的内存泄露的代码继而解决。本届主要介绍一些常见的内存泄露的例子，通过这些例子读者可以很好的理解内存泄露的发生场景并积累规避内存泄露的经验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android性能优化方法：内存泄露优化">
+<meta property="og:url" content="https://woshishenxian.github.io/2016/10/28/Android性能优化方法：内存泄露优化/index.html">
 <meta property="og:site_name" content="南柯Nanke">
+<meta property="og:description" content="前言内存泄露在开发工程中是一个需要重视的问题，但是由于内存泄露问题对开发人员的经验和开发意识有较高的要求，因此这也是开发人员最容易犯的错误之一。内存泄露的优化分为两个方面，一方面是在开发过程中避免写出有内存泄露的代码，另一方面是用过一些分析工具比如MAT来找出潜在的内存泄露的代码继而解决。本届主要介绍一些常见的内存泄露的例子，通过这些例子读者可以很好的理解内存泄露的发生场景并积累规避内存泄露的经验">
+<meta property="og:updated_time" content="2016-10-28T07:30:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="南柯Nanke">
+<meta name="twitter:title" content="Android性能优化方法：内存泄露优化">
+<meta name="twitter:description" content="前言内存泄露在开发工程中是一个需要重视的问题，但是由于内存泄露问题对开发人员的经验和开发意识有较高的要求，因此这也是开发人员最容易犯的错误之一。内存泄露的优化分为两个方面，一方面是在开发过程中避免写出有内存泄露的代码，另一方面是用过一些分析工具比如MAT来找出潜在的内存泄露的代码继而解决。本届主要介绍一些常见的内存泄露的例子，通过这些例子读者可以很好的理解内存泄露的发生场景并积累规避内存泄露的经验">
 
 
 
@@ -110,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="https://woshishenxian.github.io/"/>
+  <link rel="canonical" href="https://woshishenxian.github.io/2016/10/28/Android性能优化方法：内存泄露优化/"/>
 
-  <title> 南柯Nanke </title>
+  <title> Android性能优化方法：内存泄露优化 | 南柯Nanke </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,9 +137,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -232,9 +234,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -254,10 +256,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/10/28/Android性能优化方法：内存泄露优化/" itemprop="url">
-                  Android性能优化方法：内存泄露优化
-                </a>
+                Android性能优化方法：内存泄露优化
               
             
           </h1>
@@ -304,9 +303,7 @@
       
 
       
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>内存泄露在开发工程中是一个需要重视的问题，但是由于内存泄露问题对开发人员的经验和开发意识有较高的要求，因此这也是开发人员最容易犯的错误之一。内存泄露的优化分为两个方面，一方面是在开发过程中避免写出有内存泄露的代码，另一方面是用过一些分析工具比如MAT来找出潜在的内存泄露的代码继而解决。本届主要介绍一些常见的内存泄露的例子，通过这些例子读者可以很好的理解内存泄露的发生场景并积累规避内存泄露的经验。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>内存泄露在开发工程中是一个需要重视的问题，但是由于内存泄露问题对开发人员的经验和开发意识有较高的要求，因此这也是开发人员最容易犯的错误之一。内存泄露的优化分为两个方面，一方面是在开发过程中避免写出有内存泄露的代码，另一方面是用过一些分析工具比如MAT来找出潜在的内存泄露的代码继而解决。本届主要介绍一些常见的内存泄露的例子，通过这些例子读者可以很好的理解内存泄露的发生场景并积累规避内存泄露的经验。</p>
 <h3 id="场景一：静态变量导致内存泄露"><a href="#场景一：静态变量导致内存泄露" class="headerlink" title="场景一：静态变量导致内存泄露"></a>场景一：静态变量导致内存泄露</h3><p>下面这种情形是一种最简单的内存泄露，相信读者都不会这么干，下面代码将导致Activity无法正常销毁，一次静态变量sContext引用了它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity &#123;</div><div class="line">	private static final String TAG = &quot;MainActivity&quot;;</div><div class="line"></div><div class="line">	private static Context sContext;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">		super.onCreate(savedInstanceState);</div><div class="line">		setContentView(R.layout.activity_main);</div><div class="line">		sContext = this;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>上面代码也可以改造一下，如下所示。sView是一个静态变量，它内部持有了当前Activity,所以Activity仍然无法释放。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity &#123;</div><div class="line">	private static final String TAG = &quot;MainActivity&quot;;</div><div class="line"></div><div class="line">	private static View sView;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">		super.onCreate(savedInstanceState);</div><div class="line">		setContentView(R.layout.activity_main);</div><div class="line">		sView = new View(this);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="场景2：单利模式导致的内存泄露"><a href="#场景2：单利模式导致的内存泄露" class="headerlink" title="场景2：单利模式导致的内存泄露"></a>场景2：单利模式导致的内存泄露</h3><p>静态变量导致的内存泄露都太过于明显，相信读者都不会犯这种错误，而单例模式所带来的内存泄露使我们容易忽视的，如下所示。首先提供一个单例模式的TestManager,TestManager 可以接受外部的注册并将外部的监听器储存起来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">public class TestManager &#123;</div><div class="line">	private List&lt;OnDataArrivedListener&gt; mOnDataArrivedListeners = new ArrayList&lt;OnDataArrivedListener&gt;();</div><div class="line"></div><div class="line">	private static class SingletonHolder &#123;</div><div class="line">		public static final TestManager INSTANCE = new TestManager();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	private TestManager() &#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static TestManager getInstance() &#123;</div><div class="line">		return SingletonHolder.INSTANCE;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public synchronized void registerListener(OnDataArrivedListener listener) &#123;</div><div class="line">		if (!mOnDataArrivedListeners.contains(listener)) &#123;</div><div class="line">			mOnDataArrivedListeners.add(listener);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public synchronized void unregisterListener(OnDataArrivedListener listener) &#123;</div><div class="line">		if (mOnDataArrivedListeners.contains(listener)) &#123;</div><div class="line">			mOnDataArrivedListeners.remove(listener);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	interface OnDataArrivedListener &#123;</div><div class="line">		public void onDataArrived(Object data);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -322,16 +319,20 @@
 <li>尽量采用静态内部类，这样可以避免潜在的由于内部类而导致的内存泄露。</li>
 </ul>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -339,514 +340,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/09/05/Rxjava学习：Rxjava的进阶/" rel="next" title="Rxjava学习：Rxjava的进阶">
+                <i class="fa fa-chevron-left"></i> Rxjava学习：Rxjava的进阶
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/09/05/Rxjava学习：Rxjava的进阶/" itemprop="url">
-                  Rxjava学习：Rxjava的进阶
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T15:56:47+08:00" content="2016-09-05">
-              2016-09-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Rxjava学习/" itemprop="url" rel="index">
-                    <span itemprop="name">Rxjava学习</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/05/Rxjava学习：Rxjava的进阶/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/Rxjava学习：Rxjava的进阶/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近有点乱，项目忙着上线，临近这个时候，项目总会出现各种问题，测试出各种bug，有的没得一大堆，尤其是出现memory leak问题，关于memory leak一直想写篇博客谈谈我的想法，这里不多说，咱来接着聊一聊Rxjava的学习。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/05/Rxjava学习：Rxjava的进阶/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/02/Retrofit2-1官方文档的翻译/" itemprop="url">
-                  Retrofit2.1官方文档的翻译
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T16:52:13+08:00" content="2016-09-02">
-              2016-09-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Retrofit2-1/" itemprop="url" rel="index">
-                    <span itemprop="name">Retrofit2.1</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/02/Retrofit2-1官方文档的翻译/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/Retrofit2-1官方文档的翻译/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>对于Retrofit也是刚开始接触，Retrofit 的使用也并没有太多的心得，网上有很多关于Retrofit的介绍，但是在我看来先从官方文档开始学习不失是一个好的选择。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/02/Retrofit2-1官方文档的翻译/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/28/从EventBus2-0-到-EventBus3-0/" itemprop="url">
-                  从EventBus2.0 到 EventBus3.0
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-28T14:37:35+08:00" content="2016-08-28">
-              2016-08-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/EventBus/" itemprop="url" rel="index">
-                    <span itemprop="name">EventBus</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/28/从EventBus2-0-到-EventBus3-0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/28/从EventBus2-0-到-EventBus3-0/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/imgs/eventbus_01.jpg" alt="配图"></p>
-<h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>以前开发一直在用 EventBus2.0，最近想学点新东西，看到EventBus竟然出3.0了，看时间是早就有了，但一直没接触过，就学习学习，也顺便谈谈我在使用两个版本时，对它们的不同的感受。<br>开讲之前先付一下源码地址：<a href="https://github.com/greenrobot/EventBus">https://github.com/greenrobot/EventBus</a><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/28/从EventBus2-0-到-EventBus3-0/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/25/Rxjava学习：谈谈Rxjava的使用/" itemprop="url">
-                  Rxjava学习：谈谈Rxjava的使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-25T17:27:24+08:00" content="2016-08-25">
-              2016-08-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Rxjava学习/" itemprop="url" rel="index">
-                    <span itemprop="name">Rxjava学习</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/25/Rxjava学习：谈谈Rxjava的使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/Rxjava学习：谈谈Rxjava的使用/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/imgs/8c91ad2096d7aaea9dc52dc4c86a8d58.jpg" alt="配图"></p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在 <a href="http://www.jianshu.com/p/264a1322669a">Rxjava学习:初识Rxjava</a> 一文中，我们对Rxjava的几个基本概念做了介绍，今天就来谈谈对Rxjava的使用。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/25/Rxjava学习：谈谈Rxjava的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -854,6 +373,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/28/Android性能优化方法：内存泄露优化/"
+           data-title="Android性能优化方法：内存泄露优化" data-url="https://woshishenxian.github.io/2016/10/28/Android性能优化方法：内存泄露优化/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -873,8 +400,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://www.jianshu.com/assets/default_avatar/11-b5e5659ac49eda9d6b2249ac81f94fda.jpg"
@@ -944,6 +480,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景一：静态变量导致内存泄露"><span class="nav-number">2.</span> <span class="nav-text">场景一：静态变量导致内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景2：单利模式导致的内存泄露"><span class="nav-number">3.</span> <span class="nav-text">场景2：单利模式导致的内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景3：属性动画导致内存泄露"><span class="nav-number">4.</span> <span class="nav-text">场景3：属性动画导致内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些性能优化建议"><span class="nav-number">5.</span> <span class="nav-text">一些性能优化建议</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1040,6 +587,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
