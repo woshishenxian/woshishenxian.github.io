@@ -91,8 +91,8 @@
 <meta property="og:site_name" content="南柯Nanke">
 <meta property="og:description" content="1.添加日志输出12Retrofit retrofit = new Retrofit.Builder().client(new OkHttpClient.Builder().addNetworkInterceptor(   new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)).build());">
 <meta property="og:image" content="https://woshishenxian.github.io/imgs/2149115-f2becc1a2a11fcfc.jpg">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-a75ab976a221b88c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-10-31T01:19:43.000Z">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/2149115-a75ab976a221b88c.png">
+<meta property="og:updated_time" content="2016-10-31T01:26:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit2.1学习:与okhttp3.0结合使用">
 <meta name="twitter:description" content="1.添加日志输出12Retrofit retrofit = new Retrofit.Builder().client(new OkHttpClient.Builder().addNetworkInterceptor(   new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)).build());">
@@ -327,6 +327,7 @@
       
         <p><img src="/imgs/2149115-f2becc1a2a11fcfc.jpg" alt="配图"></p>
 <h3 id="1-添加日志输出"><a href="#1-添加日志输出" class="headerlink" title="1.添加日志输出"></a>1.添加日志输出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Retrofit retrofit = new Retrofit.Builder().client(new OkHttpClient.Builder().addNetworkInterceptor(</div><div class="line">   new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)).build());</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <hr>
 <h3 id="2-添加请求头信息"><a href="#2-添加请求头信息" class="headerlink" title="2.添加请求头信息"></a>2.添加请求头信息</h3><p>在 <a href="http://www.jianshu.com/p/8cf33ad72211" target="_blank" rel="external">Retrofit官方文档的翻译</a> 一文中有提到，<strong>每一个请求都需要添加相同的 header的时候可以使用 OkHttp 的 interceptor 来指定。</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">new Retrofit.Builder()</div><div class="line">           .addConverterFactory(GsonConverterFactory.create())</div><div class="line">           .client(new OkHttpClient.Builder()</div><div class="line">                   .addInterceptor(new Interceptor() &#123;</div><div class="line">                       @Override</div><div class="line">                       public Response intercept(Chain chain) throws IOException &#123;</div><div class="line">                           Request request = chain.request()</div><div class="line">                                   .newBuilder()</div><div class="line">                                   .addHeader(&quot;Accept&quot;, &quot;application/vnd.github.v3.full+json&quot;)</div><div class="line">                                   .addHeader(&quot;User-Agent&quot;, &quot;Retrofit-Sample-App&quot;)</div><div class="line">                                   .build();</div><div class="line">                           return chain.proceed(request);</div><div class="line">                       &#125;</div><div class="line">                   &#125;)</div><div class="line"></div><div class="line">                   .build()</div></pre></td></tr></table></figure>
@@ -338,7 +339,7 @@
 <p>SSL单向认证</p>
 </blockquote>
 <p>加入证书源文件，证书可以放在assets 下面，或者raw 下面也是可以的：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2149115-a75ab976a221b88c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配图1"></p>
+<p><img src="/imgs/2149115-a75ab976a221b88c.png" alt="配图1"></p>
 <ul>
 <li><p>构造keyStore对象， 然后将得到的CertificateStream放入到keyStore中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">InputStream certificateStream = mContext.getResources().openRawResource(R.raw.srca);</div><div class="line"></div><div class="line"> KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());</div><div class="line"></div><div class="line"> keyStore.load(certificateStream, &quot;password&quot;.toCharArray());</div></pre></td></tr></table></figure>
