@@ -324,20 +324,12 @@
 
       
         
-          
-            <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>相对于Retrofit原始Call接口的使用，网上现在更多的是介绍与Rxjava相结合多使用，今天我们也来聊聊关于Rxjava的使用。</p>
-<blockquote>
-<p>1.对Rxjava的引入</p>
-</blockquote>
-<p>首先需要导入 Rxjava 与 RxAndroid,以及Retrofit提供的适配接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">compile &apos;io.reactivex:rxandroid:1.2.1&apos;</div><div class="line">compile &apos;io.reactivex:rxjava:1.1.8&apos;</div><div class="line"></div><div class="line">compile &apos;com.squareup.retrofit2:adapter-rxjava:2.1.0&apos;</div></pre></td></tr></table></figure></p>
-<p>接下来Retrofit对于Rxjava的适配做了封装，只需要一行代码就能完成引入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())</div><div class="line">        .baseUrl(baseUrl)</div><div class="line">        .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>2.Rxjava的结合使用</p>
-</blockquote>
-<p>接下来只需要对Retrofit需要转换的java接口进行修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public interface ApiService &#123;</div><div class="line">    @GET(&quot;list&quot;)</div><div class="line">    Observable&lt;Vo&gt; getData();&#125;</div></pre></td></tr></table></figure></p>
-<p>这样就完成了对Rxjava的整个引入，关于Rxjava的如何使用本文就不做重点介绍，如果大家想要了解 可以看看这篇文章 《<a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">给 Android 开发者的 RxJava 详解</a>》.</p>
-
-          
+          <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>相对于Retrofit原始Call接口的使用，网上现在更多的是介绍与Rxjava相结合多使用，今天我们也来聊聊关于Rxjava的使用。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/11/Retrofit2-1学习-与Rxjava结合使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
