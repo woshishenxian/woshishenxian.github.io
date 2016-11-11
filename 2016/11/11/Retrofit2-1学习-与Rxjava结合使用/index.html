@@ -84,28 +84,28 @@
 
 
 
-<meta name="description" content="姓名：南柯Nanke
-年龄：。。。
-所在地：北京
-从事行业：android移动端APP开发
-爱好：羽毛球">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://woshishenxian.github.io/about/index.html">
+<meta name="description" content="前言：相对于Retrofit原始Call接口的使用，网上现在更多的是介绍与Rxjava相结合多使用，今天我们也来聊聊关于Rxjava的使用。
+
+1.对Rxjava的引入
+
+首先需要导入 Rxjava 与 RxAndroid,以及Retrofit提供的适配接口1234compile &amp;apos;io.reactivex:rxandroid:1.2.1&amp;apos;compile &amp;apos;io.re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Retrofit2.1学习:与Rxjava结合使用">
+<meta property="og:url" content="https://woshishenxian.github.io/2016/11/11/Retrofit2-1学习-与Rxjava结合使用/index.html">
 <meta property="og:site_name" content="南柯Nanke">
-<meta property="og:description" content="姓名：南柯Nanke
-年龄：。。。
-所在地：北京
-从事行业：android移动端APP开发
-爱好：羽毛球">
-<meta property="og:updated_time" content="2016-08-25T10:11:17.000Z">
+<meta property="og:description" content="前言：相对于Retrofit原始Call接口的使用，网上现在更多的是介绍与Rxjava相结合多使用，今天我们也来聊聊关于Rxjava的使用。
+
+1.对Rxjava的引入
+
+首先需要导入 Rxjava 与 RxAndroid,以及Retrofit提供的适配接口1234compile &amp;apos;io.reactivex:rxandroid:1.2.1&amp;apos;compile &amp;apos;io.re">
+<meta property="og:updated_time" content="2016-11-11T01:56:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="姓名：南柯Nanke
-年龄：。。。
-所在地：北京
-从事行业：android移动端APP开发
-爱好：羽毛球">
+<meta name="twitter:title" content="Retrofit2.1学习:与Rxjava结合使用">
+<meta name="twitter:description" content="前言：相对于Retrofit原始Call接口的使用，网上现在更多的是介绍与Rxjava相结合多使用，今天我们也来聊聊关于Rxjava的使用。
+
+1.对Rxjava的引入
+
+首先需要导入 Rxjava 与 RxAndroid,以及Retrofit提供的适配接口1234compile &amp;apos;io.reactivex:rxandroid:1.2.1&amp;apos;compile &amp;apos;io.re">
 
 
 
@@ -126,15 +126,9 @@
 
 
 
-  <link rel="canonical" href="https://woshishenxian.github.io/about/"/>
+  <link rel="canonical" href="https://woshishenxian.github.io/2016/11/11/Retrofit2-1学习-与Rxjava结合使用/"/>
 
-  <title>
-  
-
-  
-    about | 南柯Nanke
-  
-</title>
+  <title> Retrofit2.1学习:与Rxjava结合使用 | 南柯Nanke </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -155,7 +149,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,14 +249,149 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-      <p>姓名：南柯Nanke</p>
-<p>年龄：。。。</p>
-<p>所在地：北京</p>
-<p>从事行业：android移动端APP开发</p>
-<p>爱好：羽毛球</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="http://music.163.com/outchain/player?type=0&id=451103775&auto=1&height=430"></iframe>
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Retrofit2.1学习:与Rxjava结合使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-11T09:54:39+08:00" content="2016-11-11">
+              2016-11-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Retrofit2-1/" itemprop="url" rel="index">
+                    <span itemprop="name">Retrofit2.1</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/11/Retrofit2-1学习-与Rxjava结合使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/11/Retrofit2-1学习-与Rxjava结合使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
     
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>相对于Retrofit原始Call接口的使用，网上现在更多的是介绍与Rxjava相结合多使用，今天我们也来聊聊关于Rxjava的使用。</p>
+<blockquote>
+<p>1.对Rxjava的引入</p>
+</blockquote>
+<p>首先需要导入 Rxjava 与 RxAndroid,以及Retrofit提供的适配接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">compile &apos;io.reactivex:rxandroid:1.2.1&apos;</div><div class="line">compile &apos;io.reactivex:rxjava:1.1.8&apos;</div><div class="line"></div><div class="line">compile &apos;com.squareup.retrofit2:adapter-rxjava:2.1.0&apos;</div></pre></td></tr></table></figure></p>
+<p>接下来Retrofit对于Rxjava的适配做了封装，只需要一行代码就能完成引入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())</div><div class="line">        .baseUrl(baseUrl)</div><div class="line">        .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>2.Rxjava的结合使用</p>
+</blockquote>
+<p>接下来只需要对Retrofit需要转换的java接口进行修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public interface ApiService &#123;</div><div class="line">    @GET(&quot;list&quot;)</div><div class="line">    Observable&lt;Vo&gt; getData();&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就完成了对Rxjava的整个引入，关于Rxjava的如何使用本文就不做重点介绍，如果大家想要了解 可以看看这篇文章 《<a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">给 Android 开发者的 RxJava 详解</a>》.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/31/Retrofit2-1学习-与okhttp3-0结合使用/" rel="next" title="Retrofit2.1学习:与okhttp3.0结合使用">
+                <i class="fa fa-chevron-left"></i> Retrofit2.1学习:与okhttp3.0结合使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -271,6 +400,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/11/Retrofit2-1学习-与Rxjava结合使用/"
+           data-title="Retrofit2.1学习:与Rxjava结合使用" data-url="https://woshishenxian.github.io/2016/11/11/Retrofit2-1学习-与Rxjava结合使用/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -290,8 +427,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://img1.2345.com/duoteimg/qqTxImg/2013/12/ns/18-024824_754.jpg"
@@ -361,6 +507,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -457,6 +614,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
