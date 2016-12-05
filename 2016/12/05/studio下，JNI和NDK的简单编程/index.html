@@ -1,0 +1,715 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VENS/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VENS/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="博客-南柯Nanke" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/woshishenxian/woshishenxian.github.io/master/images/bitbug_favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言Java JNI 本意是Java Native Interface（java 本地接口），他是为了方便Java调用C、C++等本地代码所封装的一层接口。NDK 是android所提供的一个工具集合，通过NDK可以在Android中更加方便地通过JNI来访问本地代码，比如C或者C++。NDK还提供了交叉编译器，开发人员只需要简单的修改mk文件就可以生成特定的CPU平台的动态库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="studio下，JNI和NDK的简单编程">
+<meta property="og:url" content="https://woshishenxian.github.io/2016/12/05/studio下，JNI和NDK的简单编程/index.html">
+<meta property="og:site_name" content="博客-南柯Nanke">
+<meta property="og:description" content="前言Java JNI 本意是Java Native Interface（java 本地接口），他是为了方便Java调用C、C++等本地代码所封装的一层接口。NDK 是android所提供的一个工具集合，通过NDK可以在Android中更加方便地通过JNI来访问本地代码，比如C或者C++。NDK还提供了交叉编译器，开发人员只需要简单的修改mk文件就可以生成特定的CPU平台的动态库。">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/jni-01.png">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/jni-02.png">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/jni-03.png">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/jni-04.png">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/jni-05.png">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/jni-06.png">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/jni-07.png">
+<meta property="og:updated_time" content="2016-12-05T08:11:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="studio下，JNI和NDK的简单编程">
+<meta name="twitter:description" content="前言Java JNI 本意是Java Native Interface（java 本地接口），他是为了方便Java调用C、C++等本地代码所封装的一层接口。NDK 是android所提供的一个工具集合，通过NDK可以在Android中更加方便地通过JNI来访问本地代码，比如C或者C++。NDK还提供了交叉编译器，开发人员只需要简单的修改mk文件就可以生成特定的CPU平台的动态库。">
+<meta name="twitter:image" content="https://woshishenxian.github.io/imgs/jni-01.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://woshishenxian.github.io/2016/12/05/studio下，JNI和NDK的简单编程/"/>
+
+  <title> studio下，JNI和NDK的简单编程 | 博客-南柯Nanke </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">博客-南柯Nanke</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                studio下，JNI和NDK的简单编程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T16:02:31+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android开发艺术谈说/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发艺术谈说</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/05/studio下，JNI和NDK的简单编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/05/studio下，JNI和NDK的简单编程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java JNI 本意是Java Native Interface（java 本地接口），他是为了方便Java调用C、C++等本地代码所封装的一层接口。<br>NDK 是android所提供的一个工具集合，通过NDK可以在Android中更加方便地通过JNI来访问本地代码，比如C或者C++。NDK还提供了交叉编译器，开发人员只需要简单的修改mk文件就可以生成特定的CPU平台的动态库。<br><a id="more"></a><br>使用NDK有如下好处：</p>
+<ul>
+<li>提高代码安全性。由于so库反编译比较困难，因此NDK提高了Android程序的安全性。</li>
+<li>可以很方便的使用目前已有的C/C++开源库。</li>
+<li>便于平台间的移植。通过C/C++实现的动态库可以很方便地在其他平台上使用。</li>
+<li>提高程序在某些特定情形下的执行效率，但是并不能明显提升android程序的性能。</li>
+</ul>
+<h3 id="NDK的开发流程（本文以android-studio-为例）"><a href="#NDK的开发流程（本文以android-studio-为例）" class="headerlink" title="NDK的开发流程（本文以android studio 为例）"></a>NDK的开发流程（本文以android studio 为例）</h3><blockquote>
+<p>下载配置NDK</p>
+</blockquote>
+<p>首先到官网下载NDK：<a href="https://developer.android.com/ndk/downloads/index.html" target="_blank" rel="external">NDK下载入口</a><br>下载完成后，如图找到 Project Structure 完成配置。<br><img src="/imgs/jni-01.png" alt="屏幕快照"></p>
+<blockquote>
+<p>创建一个Android项目，并声明所需的native方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    private static final String TAG = &quot;MainActivity&quot;;</div><div class="line"></div><div class="line">    private TextView textView;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        textView = (TextView) findViewById(R.id.textView);</div><div class="line">        set(&quot;hello world from JniTestApp&quot;);</div><div class="line">        textView.setText(get());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * A native method that is implemented by the &apos;jni-test&apos; native library,</div><div class="line">     * which is packaged with this application.</div><div class="line">     */</div><div class="line">    public native void set(String str);</div><div class="line">    public native String get();</div><div class="line"></div><div class="line">    // Used to load the &apos;native-lib&apos; library on application startup.</div><div class="line">    static &#123;</div><div class="line">        System.loadLibrary(&quot;jni-test&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>实现Android项目中所声明的native方法</p>
+</blockquote>
+<ul>
+<li><strong>首先说一下android studio 的自动编译产生so库。</strong><br>先创建test.cpp文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//test.cpp</div><div class="line">#include &lt;jni.h&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line"></div><div class="line">#ifdef __cplusplus</div><div class="line">extern &quot;C&quot; &#123;</div><div class="line">#endif</div><div class="line"></div><div class="line">jstring Java_com_ryg_JniTestApp_MainActivity_get(JNIEnv *env, jobject thiz) &#123;</div><div class="line">    printf(&quot;invoke get in c++\n&quot;);</div><div class="line">    return env-&gt;NewStringUTF(&quot;Hello from JNI in libjni-test.so !&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Java_com_ryg_JniTestApp_MainActivity_set(JNIEnv *env, jobject thiz, jstring string) &#123;</div><div class="line">    printf(&quot;invoke set from C++\n&quot;);</div><div class="line">    char* str = (char*)env-&gt;GetStringUTFChars(string,NULL);</div><div class="line">    printf(&quot;%s\n&quot;, str);</div><div class="line">    env-&gt;ReleaseStringUTFChars(string, str);</div><div class="line">&#125;</div><div class="line"></div><div class="line">#ifdef __cplusplus</div><div class="line">&#125;</div><div class="line">#endif</div></pre></td></tr></table></figure>
+<p>为了能够让androidStudio自动编译JNI代码，首先需要在APP 的build.grade 的 defaultConfig 区域内添加NDK选项，其中moduleName指定了模块的名称，这个名称指定了打包后的so库的文件名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">    defaultConfig &#123;</div><div class="line">       ...</div><div class="line">        ndk &#123;</div><div class="line">            moduleName &quot;jni-test&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接着需要将JNI的代码放在 app/src/main/jni 目录下，</p>
+<p><img src="/imgs/jni-02.png" alt="屏幕快照 "><br>注意存放 JNI代码的目录名必须为jni，如果不想采用jni这个名称，可以通过如下方式来指定JNI的代码路径，其中jni.srcDirs 指定了JNI 代码的路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">    sourceSets.main &#123;</div><div class="line">       jni.srcDirs &apos;src/main/jni_src&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>经过上面步骤，AndroidStudio就可以自动编译JNI代码了，但是这个时候AndroidStudio 会把所有CPU平台的so库都打包apk，一般来说实际开发只需要打包armeabi 平台的so库即可。 解决这个问题也简单，按照如下方式修改build.gradle配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">    productFlavors &#123;</div><div class="line">    arm &#123;</div><div class="line">        ndk &#123;</div><div class="line">            abiFilter &quot;armeabi&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    x86 &#123;</div><div class="line">        ndk &#123;</div><div class="line">            abiFilter &quot;x86&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后找到Build Variants 面板中选择armDebug 选项进行编辑就可以了。<br><img src="/imgs/jni-03.png" alt="屏幕快照"></p>
+<p><img src="/imgs/jni-04.png" alt="屏幕快照"></p>
+<ul>
+<li><strong>除了以上方法，我们还可以使用NDK 手动的去生成所需要的so库</strong></li>
+</ul>
+<p>这里首先我们需要配置我们的环境变量（Macbook为例）：<br>首先打开配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open ~/.bash_profile</div></pre></td></tr></table></figure></p>
+<p>然后添加如下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=/Users/vince/Downloads/adt-bundle-mac-x86_64-20140702/sdk/ndk-bundle/:$PATH</div></pre></td></tr></table></figure></p>
+<p>其中 <strong>/Users/vince/Downloads/adt-bundle-mac-x86_64-20140702/sdk/ndk-bundle/</strong>是我本地NDK的存放路径。</p>
+<p>添加完成后，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.bash_profile</div></pre></td></tr></table></figure></p>
+<p>来刷新刚设置好的环境变量。设置完成后，我们通过 ndk-build 命令来编译生成so库。</p>
+<p>接下来需要 在外部创建一个名为jni的目录，然后创建三个文件：test.cpp、Android.mk、Application.mk。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//Application.mk</div><div class="line">APP_ABI := armeabi</div></pre></td></tr></table></figure>
+<p>在Application.mk中，常用的配置项是 APP_ABI ，表示CPU的架构平台的类型，常见的架构平台有 armeabi、x86、mips，其中移动设备中占据主要地位的是armeabi，这也是大部分apk中只包含armeabi类型的so库的原因。默认情况下NDK会编译产生各个CPU平台的so库，通过AOO_ABI选项即可指定so库的CPU平台的类型，比如armeabi，这样NDK只会编译armeabi平台下的so库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//Android.mk</div><div class="line">LOCAL_PATH := $(call my-dir)</div><div class="line"></div><div class="line">include $(CLEAR_VARS)</div><div class="line"></div><div class="line">LOCAL_MODULE    := jni-test</div><div class="line">LOCAL_SRC_FILES := test.cpp</div><div class="line"></div><div class="line">include $(BUILD_SHARED_LIBRARY)</div></pre></td></tr></table></figure></p>
+<p>在Android.mk中，LOCAL_MODULE 表示模块的名称，LOCAL_SRC_FILES 表示需要参与编译的源文件。</p>
+<p>接下来，终端界面（命令行界面）切换到jni目录的父目录，然后运行ndk-build 命令编译生成so库。<br>编译过程中，NDK会创建一个和jni目录平级的目录libs，libs下面就存放着生成的so库。<strong>需要注意的是，ndk-build 命令默认指定jni目录为bending源码的目录，如果源码存放的目录名不是jni，那么 ndk-build 则无法成功编译。</strong></p>
+<p><img src="/imgs/jni-05.png" alt="编译前"></p>
+<p><img src="/imgs/jni-06.png" alt="编译后"></p>
+<p>so库的引入使用<br>在 app/src/main 中创建一个名为jniLibs 的目录，将生成的so库复制到jniLibs 目录中，然后通过AndroidStudio 编译运行即可。<br><img src="/imgs/jni-07.png" alt="屏幕快照"><br>上面步骤需要将NDK编译的so库放置在 jniLibs目录下，这个是AndroidStudio 所识别的默认目录，如果想使用其他目录，可以修改App的build.gradle 文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android&#123;</div><div class="line">      ...</div><div class="line">      sourceSets.main&#123;</div><div class="line">            jniLibs.srcDir &apos;src/main/jni_libs&apos;</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>附上demo的地址 ： <a href="https://github.com/woshishenxian/NdkDemo" target="_blank" rel="external">https://github.com/woshishenxian/NdkDemo</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/01/消息栏通知Notification的那些事儿/" rel="next" title="消息栏通知Notification的那些事儿">
+                <i class="fa fa-chevron-left"></i> 消息栏通知Notification的那些事儿
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/05/studio下，JNI和NDK的简单编程/"
+           data-title="studio下，JNI和NDK的简单编程" data-url="https://woshishenxian.github.io/2016/12/05/studio下，JNI和NDK的简单编程/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img1.2345.com/duoteimg/qqTxImg/2013/12/ns/18-024824_754.jpg"
+               alt="南柯Nanke" />
+          <p class="site-author-name" itemprop="name">南柯Nanke</p>
+          <p class="site-description motion-element" itemprop="description">生命不止，折腾不惜。。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/woshishenxian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/2c959b909679/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NDK的开发流程（本文以android-studio-为例）"><span class="nav-number">2.</span> <span class="nav-text">NDK的开发流程（本文以android studio 为例）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">3.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南柯Nanke</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VENS/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VENS/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"vince"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/VENS/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
