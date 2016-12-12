@@ -1,6 +1,8 @@
 # 南柯Nanke 博客
 
 个人博客 会不定期更新
+## 2016-12-01
+- 更新文章：谈一谈SharedPreference的一些使用误区
 
 ## 2016-12-01
 - 更新文章：android studio下，JNI和NDK的简单编程
