@@ -1,0 +1,686 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VENS/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VENS/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="博客-南柯Richie" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/woshishenxian/woshishenxian.github.io/master/images/bitbug_favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="目前Android 发展至今优秀的图片加载框架太多，例如： Volley ,Picasso,Imageloader，Glide等等。但是作为程序猿，懂得其中的实现原理还是相当重要的，只有懂得才能更好地使用。于是乎，今天我就简单设计一个网络加载图片框架。主要就是熟悉图片的网络加载机制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片加载框架的简单设计">
+<meta property="og:url" content="https://woshishenxian.github.io/2016/12/16/图片加载框架的简单设计/index.html">
+<meta property="og:site_name" content="博客-南柯Richie">
+<meta property="og:description" content="目前Android 发展至今优秀的图片加载框架太多，例如： Volley ,Picasso,Imageloader，Glide等等。但是作为程序猿，懂得其中的实现原理还是相当重要的，只有懂得才能更好地使用。于是乎，今天我就简单设计一个网络加载图片框架。主要就是熟悉图片的网络加载机制。">
+<meta property="og:updated_time" content="2016-12-16T08:51:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图片加载框架的简单设计">
+<meta name="twitter:description" content="目前Android 发展至今优秀的图片加载框架太多，例如： Volley ,Picasso,Imageloader，Glide等等。但是作为程序猿，懂得其中的实现原理还是相当重要的，只有懂得才能更好地使用。于是乎，今天我就简单设计一个网络加载图片框架。主要就是熟悉图片的网络加载机制。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://woshishenxian.github.io/2016/12/16/图片加载框架的简单设计/"/>
+
+  <title> 图片加载框架的简单设计 | 博客-南柯Richie </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">博客-南柯Richie</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                图片加载框架的简单设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-16T16:49:52+08:00" content="2016-12-16">
+              2016-12-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/16/图片加载框架的简单设计/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/16/图片加载框架的简单设计/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>目前Android 发展至今优秀的图片加载框架太多，例如： Volley ,Picasso,Imageloader，Glide等等。但是作为程序猿，懂得其中的实现原理还是相当重要的，只有懂得才能更好地使用。于是乎，今天我就简单设计一个网络加载图片框架。主要就是熟悉图片的网络加载机制。<br><a id="more"></a></p>
+<hr>
+<p>一般来说，一个优秀的 图片加载框架(ImageLoader) 应该具备如下功能：</p>
+<ul>
+<li>图片压缩</li>
+<li>内存缓存</li>
+<li>磁盘缓存</li>
+<li>图片的同步加载</li>
+<li>图片的异步加载</li>
+<li>网络拉取</li>
+</ul>
+<p>那我们就从以上几个方面进行介绍：</p>
+<blockquote>
+<p>1.图片压缩（有效的降低OOM的发生概率）</p>
+</blockquote>
+<p>图片压缩功能我在<a href="http://www.jianshu.com/p/e9fd10fcae50" target="_blank" rel="external">Bitmap 的高效加载</a>中已经做了介绍这里不多说直接上代码。这里直接抽象一个类用于完成图片压缩功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">public class ImageResizer &#123;</div><div class="line">	private static final String TAG = &quot;ImageResizer&quot;;</div><div class="line"></div><div class="line">	public ImageResizer() &#123;</div><div class="line">		super();</div><div class="line">		// TODO Auto-generated constructor stub</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public Bitmap decodeSampledBitmapFromResource(Resources res, int resId,</div><div class="line">			int reqWidth, int reqHeight) &#123;</div><div class="line">		final BitmapFactory.Options options = new BitmapFactory.Options();</div><div class="line">		options.inJustDecodeBounds = true;</div><div class="line">		BitmapFactory.decodeResource(res, resId, options);</div><div class="line"></div><div class="line">		options.inSampleSize = calculateInSampleSize(options, reqWidth,</div><div class="line">				reqHeight);</div><div class="line"></div><div class="line">		options.inJustDecodeBounds = false;</div><div class="line">		return BitmapFactory.decodeResource(res, resId, options);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	public Bitmap decodeSampledBitmapFromBitmapFileDescriptor(FileDescriptor fd,</div><div class="line">			int reqWidth,int reqHeight)&#123;</div><div class="line">		final BitmapFactory.Options options = new BitmapFactory.Options();</div><div class="line">		options.inJustDecodeBounds = true;</div><div class="line">	</div><div class="line">		BitmapFactory.decodeFileDescriptor(fd, null, options);</div><div class="line">		</div><div class="line">		options.inSampleSize = calculateInSampleSize(options, reqWidth,</div><div class="line">				reqHeight);</div><div class="line"></div><div class="line">		options.inJustDecodeBounds = false;</div><div class="line">		return BitmapFactory.decodeFileDescriptor(fd, null, options);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">	</div><div class="line">	</div><div class="line"></div><div class="line">	public int calculateInSampleSize(BitmapFactory.Options options,</div><div class="line">			int reqWidth, int reqHeight) &#123;</div><div class="line"></div><div class="line">		final int width = options.outWidth;</div><div class="line">		final int height = options.outHeight;</div><div class="line"></div><div class="line">		int inSampleSize = 1;</div><div class="line">		if (height &gt; reqHeight || width &gt; reqWidth) &#123;</div><div class="line">			final int halfHeight = height / 2;</div><div class="line">			final int halfWidth = width / 2;</div><div class="line">			while ((halfHeight / inSampleSize) &gt; reqHeight</div><div class="line">					&amp;&amp; (halfWidth / inSampleSize) &gt; halfWidth) &#123;</div><div class="line">				inSampleSize *= 2;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		return inSampleSize;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>2.内存缓存和磁盘缓存</p>
+</blockquote>
+<p>缓存直接选择 LruCache 和 DiskLruCache 来完成内存缓存和磁盘缓存工作。<br>首先对其初始化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">private LruCache&lt;String, Bitmap&gt; mMemoryCache;</div><div class="line">private DiskLruCache mDiskLruCache;</div><div class="line"></div><div class="line">public ImageLoader(Context context) &#123;</div><div class="line">		mContext = context.getApplicationContext();</div><div class="line">      //分配内存缓存为当前进程的1/8,磁盘缓存容量为50M</div><div class="line">		int maxMemory = (int) (Runtime.getRuntime().maxMemory() * 1024);</div><div class="line">		int cacheSize = maxMemory / 8;</div><div class="line">		mMemoryCache = new LruCache&lt;String, Bitmap&gt;(cacheSize) &#123;</div><div class="line"></div><div class="line">			@Override</div><div class="line">			protected int sizeOf(String key, Bitmap value) &#123;</div><div class="line">				return value.getRowBytes() * value.getHeight() / 1024;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;;</div><div class="line"></div><div class="line">		File diskCacheDir = getDiskChaheDir(mContext, &quot;bitmap&quot;);</div><div class="line">		if (!diskCacheDir.exists()) &#123;</div><div class="line">			diskCacheDir.mkdirs();</div><div class="line">		&#125;</div><div class="line">		if (getUsableSpace(diskCacheDir) &gt; DISK_CACHE_SIZE) &#123;</div><div class="line">			try &#123;</div><div class="line">				mDiskLruCache = DiskLruCache.open(diskCacheDir, 1, 1,</div><div class="line">						DISK_CACHE_SIZE);</div><div class="line">				mIsDiskLruCacheCreated = true;</div><div class="line">			&#125; catch (IOException e) &#123;</div><div class="line">				e.printStackTrace();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>创建完毕后，接下来则需要提供方法来视线添加以及获取的功能。首先来看内存缓存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">private void addBitmapToMemoryCache(String key, Bitmap bitmap) &#123;</div><div class="line">		if (getBitmapFromMemCache(key) == null) &#123;</div><div class="line">			mMemoryCache.put(key, bitmap);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	private Bitmap getBitmapFromMemCache(String key) &#123;</div><div class="line">		return mMemoryCache.get(key);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>相对来说内存缓存比较简单，而磁盘缓存则复杂的多。磁盘缓存（LruDiskCache）并没有直接提供方法来实现，而是要通过Editor以及Snapshot 来实现对于文件系统的添加以及读取的操作。<br>首先看一下，Editor，它提供了commit 和 abort 方法来提交和撤销对文件系统的写操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//将下载的图片写入文件系统，实现磁盘缓存</div><div class="line">	private Bitmap loadBitmapFromHttp(String url, int reqWidth, int reqHeight)</div><div class="line">			throws IOException &#123;</div><div class="line">		if (Looper.myLooper() == Looper.getMainLooper()) &#123;</div><div class="line">			throw new RuntimeException(&quot;can not visit network from UI Thread.&quot;);</div><div class="line">		&#125;</div><div class="line">		if (mDiskLruCache == null)</div><div class="line">			return null;</div><div class="line">		String key = hashKeyFormUrl(url);</div><div class="line">		DiskLruCache.Editor editor = mDiskLruCache.edit(key);</div><div class="line">		if (editor != null) &#123;</div><div class="line">			OutputStream outputStream = editor</div><div class="line">					.newOutputStream(DISK_CACHE_INDEX);</div><div class="line">			if (downloadUrlToStream(url, outputStream)) &#123;</div><div class="line">				editor.commit();</div><div class="line">			&#125; else &#123;</div><div class="line">				editor.abort();</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">		mDiskLruCache.flush();</div><div class="line">		return loadBitmapForDiskCache(url, reqWidth, reqHeight);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>Snapshot, 通过它可以获取磁盘缓存对象对应的 FileInputStream，但是FileInputStream 无法便捷的进行压缩，所以通过FileDescriptor 来加载压缩后的图片，最后将加载后的bitmap添加到内存缓存中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public Bitmap loadBitmapForDiskCache(String url, int reqWidth, int reqHeight)</div><div class="line">			throws IOException &#123;</div><div class="line">		if (Looper.myLooper() == Looper.getMainLooper()) &#123;</div><div class="line">			Log.w(TAG, &quot;load bitmap from UI Thread , it&apos;s not recommended&quot;);</div><div class="line">		&#125;</div><div class="line">		if (mDiskLruCache == null)</div><div class="line">			return null;</div><div class="line">		Bitmap bitmap = null;</div><div class="line">		String key = hashKeyFormUrl(url);</div><div class="line">		DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);</div><div class="line">		if (snapshot != null) &#123;</div><div class="line">			FileInputStream fileInputStream = (FileInputStream) snapshot</div><div class="line">					.getInputStream(DISK_CACHE_INDEX);</div><div class="line">			FileDescriptor fileDescriptor = fileInputStream.getFD();</div><div class="line">			bitmap = mImageResizer.decodeSampledBitmapFromBitmapFileDescriptor(</div><div class="line">					fileDescriptor, reqWidth, reqHeight);</div><div class="line">			if (bitmap != null) &#123;</div><div class="line">				addBitmapToMemoryCache(key, bitmap);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		return bitmap;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>3.同步加载</p>
+</blockquote>
+<p>同步加载的方法需要外部在子线程中调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">//同步加载</div><div class="line">	public Bitmap loadBitmap(String uri, int reqWidth, int reqHeight) &#123;</div><div class="line">		Bitmap bitmap = loadBitmpaFromMemCache(uri);</div><div class="line">		if (bitmap != null) &#123;</div><div class="line">			return bitmap;</div><div class="line">		&#125;</div><div class="line">		try &#123;</div><div class="line">			bitmap = loadBitmapForDiskCache(uri, reqWidth, reqHeight);</div><div class="line">			if (bitmap != null) &#123;</div><div class="line">				return bitmap;</div><div class="line">			&#125;</div><div class="line">			bitmap = loadBitmapFromHttp(uri, reqWidth, reqHeight);</div><div class="line"></div><div class="line">		&#125; catch (IOException e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		if (bitmap == null &amp;&amp; !mIsDiskLruCacheCreated) &#123;</div><div class="line">			bitmap = downloadBitmapFromUrl(uri);</div><div class="line">		&#125;</div><div class="line">		return bitmap;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>从方法中可以看出工作过程遵循如下几步：<br>首先尝试从内存缓存中读取图片，接着尝试从磁盘缓存中读取图片，最后才会从网络中拉取。此方法不能再主线程中执行，执行环境的检测是在loadBitmapFromHttp中实现的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (Looper.myLooper() == Looper.getMainLooper()) &#123;</div><div class="line">			throw new RuntimeException(&quot;can not visit network from UI Thread.&quot;);</div><div class="line">		&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>4.异步加载</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">//异步加载</div><div class="line">	public void bindBitmap(final String uri, final ImageView imageView,</div><div class="line">			final int reqWidth, final int reqHeight) &#123;</div><div class="line"></div><div class="line">		imageView.setTag(TAG_KEY_URI, uri);</div><div class="line">		Bitmap bitmap = loadBitmpaFromMemCache(uri);</div><div class="line">		if (bitmap != null) &#123;</div><div class="line">			imageView.setImageBitmap(bitmap);</div><div class="line">			return;</div><div class="line">		&#125;</div><div class="line">		Runnable loadBitmapTask = new Runnable() &#123;</div><div class="line"></div><div class="line">			@Override</div><div class="line">			public void run() &#123;</div><div class="line">				Bitmap bitmap = loadBitmap(uri, reqWidth, reqHeight);</div><div class="line">				if (bitmap != null) &#123;</div><div class="line">					LoaderResult result = new LoaderResult(imageView, uri,</div><div class="line">							bitmap);</div><div class="line">					mMainHandler.obtainMessage(MESSAGE_POST_RESULT, result)</div><div class="line">							.sendToTarget();</div><div class="line"></div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;;</div><div class="line">		THREAD_POOL_EXECUTOR.execute(loadBitmapTask);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>从bindBitmap的实现来看，bindBitmap 方法会尝试从内存缓存中读取图片，如果读取成功就直接返回结果，否则会在线程池中去调用loadBitmap方法，当图片加载成功后再将图片、图片的地址以及需要绑定的imageView封装成一个LoaderResult对象，然后再通过mMainHandler向主线程发送一个消息，这样就可以在主线程中给imageView设置图片了。</p>
+<hr>
+<p>下面来看一下，bindBitmap这个方法中用到的线程池和Handler，首先看一下线程池 THREAD_POOL_EXECUTOR 的实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">private static final int CPU_COUNT = Runtime.getRuntime()</div><div class="line">			.availableProcessors();</div><div class="line">private static final int CORE_POOL_SIZE = CPU_COUNT + 1;</div><div class="line">private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;</div><div class="line">private static final long KEEP_ALIVE = 10L;</div><div class="line"></div><div class="line"></div><div class="line">private static final ThreadFactory sThreadFactory = new ThreadFactory() &#123;</div><div class="line">		private final AtomicInteger mCount = new AtomicInteger();</div><div class="line"></div><div class="line">		@Override</div><div class="line">		public Thread newThread(Runnable r) &#123;</div><div class="line">			// TODO Auto-generated method stub</div><div class="line">			return new Thread(r, &quot;ImageLoader#&quot; + mCount.getAndIncrement());</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line"></div><div class="line"></div><div class="line">public static final Executor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(</div><div class="line">			CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS,</div><div class="line">			new LinkedBlockingDeque&lt;Runnable&gt;(), sThreadFactory);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>1.使用线程池和handler的原因。</p>
+</blockquote>
+<p>首先不能用普通线程去实现，如果采用普通线程去加载图片，随着列表的滑动可能会产生大量的线程，这样不利于效率的提升。 Handler 的实现 ，直接采用了 主线程的Looper来构造Handler 对象，这就使得 ImageLoader 可以在非主线程构造。另外为了解决由于View复用所导致的列表错位这一问题再给ImageView 设置图片之前会检查他的url有没有发生改变，如果发生改变就不再给它设置图片，这样就解决了列表错位问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">private Handler mMainHandler = new Handler(Looper.getMainLooper()) &#123;</div><div class="line"></div><div class="line">		@Override</div><div class="line">		public void handleMessage(Message msg) &#123;</div><div class="line">			LoaderResult result = (LoaderResult) msg.obj;</div><div class="line">			ImageView imageView = result.imageView;</div><div class="line">			imageView.setImageBitmap(result.bitmap);</div><div class="line">			String uri = (String) imageView.getTag(TAG_KEY_URI);</div><div class="line">			if (uri.equals(result.uri)) &#123;</div><div class="line">				imageView.setImageBitmap(result.bitmap);</div><div class="line">			&#125; else &#123;</div><div class="line">				Log.w(TAG, &quot;set image bitmap,but url has changed , ignored!&quot;);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;;</div></pre></td></tr></table></figure>
+<p>总结：<br>图片加载的问题 ，尤其是大量图片的加载，对于android 开发者来说一直是比较困扰的问题。本文只是提到了最基础的一种解决方法，用于学习还是不错的。</p>
+<p>最后结尾不多说，直接上demo：<br><a href="https://github.com/woshishenxian/ImageLoaderExp.git" target="_blank" rel="external">自定义图片加载框架–运用MVP+Retrofit+Rxjava的应用架构</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/12/谈一谈SharedPreference的一些使用误区/" rel="next" title="谈一谈SharedPreference的一些使用误区">
+                <i class="fa fa-chevron-left"></i> 谈一谈SharedPreference的一些使用误区
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/16/图片加载框架的简单设计/"
+           data-title="图片加载框架的简单设计" data-url="https://woshishenxian.github.io/2016/12/16/图片加载框架的简单设计/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img1.2345.com/duoteimg/qqTxImg/2013/12/ns/18-024824_754.jpg"
+               alt="南柯Richie" />
+          <p class="site-author-name" itemprop="name">南柯Richie</p>
+          <p class="site-description motion-element" itemprop="description">生命不止，折腾不惜。。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/woshishenxian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/2c959b909679/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南柯Richie</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VENS/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VENS/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"vince"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/VENS/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
