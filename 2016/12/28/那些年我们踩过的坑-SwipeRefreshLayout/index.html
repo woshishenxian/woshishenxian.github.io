@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Retrofit2.1," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="前言：  前面提到 Retrofit与Rxjava 的结合使用 ,今天我们就来说一说Retrofit原生自带的Call接口的使用,本文主要针对Retrofit 2.0 的开发使用，对于2.0之前的版本的使用不做讨论。">
+<meta name="description" content="SwipeRefreshLayout 作为google提供的刷新库，相当简单实用，然而却也存在着问题，本文将简单讲述一下 SwipeRefreshLayout 的使用，和 使用过程中出现的问题及其解决方案，重点 谈谈 SwipeRefreshLayout 出现问题的原因。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Retrofit2.1学习：Call接口的使用">
-<meta property="og:url" content="https://woshishenxian.github.io/2016/11/14/Retrofit2-1学习：Call接口的使用/index.html">
+<meta property="og:title" content="那些年我们踩过的坑-SwipeRefreshLayout">
+<meta property="og:url" content="https://woshishenxian.github.io/2016/12/28/那些年我们踩过的坑-SwipeRefreshLayout/index.html">
 <meta property="og:site_name" content="博客-南柯Richie">
-<meta property="og:description" content="前言：  前面提到 Retrofit与Rxjava 的结合使用 ,今天我们就来说一说Retrofit原生自带的Call接口的使用,本文主要针对Retrofit 2.0 的开发使用，对于2.0之前的版本的使用不做讨论。">
-<meta property="og:updated_time" content="2016-12-28T06:52:17.000Z">
+<meta property="og:description" content="SwipeRefreshLayout 作为google提供的刷新库，相当简单实用，然而却也存在着问题，本文将简单讲述一下 SwipeRefreshLayout 的使用，和 使用过程中出现的问题及其解决方案，重点 谈谈 SwipeRefreshLayout 出现问题的原因。">
+<meta property="og:image" content="https://woshishenxian.github.io/imgs/swipeRefreshLayout_01.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-a3a4efb3e846071e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-12-28T07:01:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Retrofit2.1学习：Call接口的使用">
-<meta name="twitter:description" content="前言：  前面提到 Retrofit与Rxjava 的结合使用 ,今天我们就来说一说Retrofit原生自带的Call接口的使用,本文主要针对Retrofit 2.0 的开发使用，对于2.0之前的版本的使用不做讨论。">
+<meta name="twitter:title" content="那些年我们踩过的坑-SwipeRefreshLayout">
+<meta name="twitter:description" content="SwipeRefreshLayout 作为google提供的刷新库，相当简单实用，然而却也存在着问题，本文将简单讲述一下 SwipeRefreshLayout 的使用，和 使用过程中出现的问题及其解决方案，重点 谈谈 SwipeRefreshLayout 出现问题的原因。">
+<meta name="twitter:image" content="https://woshishenxian.github.io/imgs/swipeRefreshLayout_01.jpg">
 
 
 
@@ -116,9 +119,9 @@
 
 
 
-  <link rel="canonical" href="https://woshishenxian.github.io/2016/11/14/Retrofit2-1学习：Call接口的使用/"/>
+  <link rel="canonical" href="https://woshishenxian.github.io/2016/12/28/那些年我们踩过的坑-SwipeRefreshLayout/"/>
 
-  <title> Retrofit2.1学习：Call接口的使用 | 博客-南柯Richie </title>
+  <title> 那些年我们踩过的坑-SwipeRefreshLayout | 博客-南柯Richie </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +261,7 @@
             
             
               
-                Retrofit2.1学习：Call接口的使用
+                那些年我们踩过的坑-SwipeRefreshLayout
               
             
           </h1>
@@ -270,8 +273,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-14T15:33:37+08:00" content="2016-11-14">
-              2016-11-14
+            <time itemprop="dateCreated" datetime="2016-12-28T14:56:49+08:00" content="2016-12-28">
+              2016-12-28
             </time>
           </span>
 
@@ -284,8 +287,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android框架探索/" itemprop="url" rel="index">
-                    <span itemprop="name">android框架探索</span>
+                  <a href="/categories/android开发艺术谈说/" itemprop="url" rel="index">
+                    <span itemprop="name">android开发艺术谈说</span>
                   </a>
                 </span>
 
@@ -300,8 +303,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/14/Retrofit2-1学习：Call接口的使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/Retrofit2-1学习：Call接口的使用/" itemprop="commentsCount"></span>
+                <a href="/2016/12/28/那些年我们踩过的坑-SwipeRefreshLayout/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/28/那些年我们踩过的坑-SwipeRefreshLayout/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -324,30 +327,32 @@
       
 
       
-        <h4 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h4><p>  前面提到 <a href="">Retrofit与Rxjava 的结合使用</a> ,今天我们就来说一说Retrofit原生自带的Call接口的使用,本文主要针对Retrofit 2.0 的开发使用，对于2.0之前的版本的使用不做讨论。<br><a id="more"></a></p>
-<h4 id="添加INTERNET权限"><a href="#添加INTERNET权限" class="headerlink" title="添加INTERNET权限"></a>添加INTERNET权限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</div></pre></td></tr></table></figure>
-<p>在Retrofit 2.0中，当你调用call.enqueue或者call.execute，未添加权限，将立即抛出SecurityException，如果你不使用try-catch会导致崩溃。</p>
-<h4 id="Call-接口的实例化"><a href="#Call-接口的实例化" class="headerlink" title="Call 接口的实例化"></a>Call 接口的实例化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public interface GitHubService &#123;</div><div class="line">  @GET(&quot;list&quot;)</div><div class="line">  Call&lt;List&lt;Repo&gt;&gt; listRepos();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>创建service 的方法和OkHttp的模式一模一样。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GitHubService service = retrofit.create(GitHubService.class);</div></pre></td></tr></table></figure>
-<p>如果要调用同步请求，只需调用execute；而发起一个异步请求则是调用enqueue。</p>
-<h4 id="同步请求"><a href="#同步请求" class="headerlink" title="同步请求"></a>同步请求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Call&lt;List&lt;Repo&gt;&gt; call = service. listRepos();</div><div class="line">List&lt;Repo&gt; repo = call.execute();</div></pre></td></tr></table></figure>
-<p>以上的代码会阻塞线程，因此你不能在安卓的主线程中调用，不然会面临NetworkOnMainThreadException。如果你想调用execute方法，请在开启子线程执行。</p>
-<h4 id="异步请求"><a href="#异步请求" class="headerlink" title="异步请求"></a>异步请求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Call&lt;Repo&gt; call = service.listRepos(&quot;user&quot;);</div><div class="line">call.enqueue(new Callback&lt;Repo&gt;() &#123;</div><div class="line">    @Override</div><div class="line">    public void onResponse(Call&lt;List&lt;Repo&gt;&gt; call,Response&lt;List&lt;Repo&gt;&gt; response) &#123;</div><div class="line">        // Get result Repo from response.body()</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    @Override</div><div class="line">    public void onFailure(Call&lt;List&lt;Repo&gt;&gt; call,Throwable t) &#123;</div><div class="line"> </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>以上代码发起了一个在后台线程的请求并从response 的response.body()方法中获取一个结果对象。注意这里的onResponse和onFailure方法是在主线程中调用的。</p>
-<p>这里建议你使用enqueue，它最符合 Android OS的习惯。</p>
-<h4 id="取消正在进行中的业务"><a href="#取消正在进行中的业务" class="headerlink" title="取消正在进行中的业务"></a>取消正在进行中的业务</h4><p>service 的模式变成Call的形式的原因是为了让正在进行的事务可以被取消。要做到这点，你只需调用call.cancel()。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">call.cancel();</div></pre></td></tr></table></figure></p>
-<h4 id="Callback-回调的使用"><a href="#Callback-回调的使用" class="headerlink" title="Callback 回调的使用"></a>Callback 回调的使用</h4><p>onResponse的调用，不仅仅是成功返回结果时调用，存在问题时也会被调用，这里查看了很多关于出现这个问题的解决方法，然而并没有给出一个明确的方案，之后查看了一下Retrofit2.0 提供的官方API解释，如下：</p>
+        <p><img src="/imgs/swipeRefreshLayout_01.jpg" alt="图"></p>
+<p>SwipeRefreshLayout 作为google提供的刷新库，相当简单实用，然而却也存在着问题，本文将简单讲述一下 SwipeRefreshLayout 的使用，和 使用过程中出现的问题及其解决方案，重点 谈谈 SwipeRefreshLayout 出现问题的原因。<br><a id="more"></a></p>
 <blockquote>
-<p>An HTTP response may still indicate an application-level failure such as a 404 or 500. Call Response.isSuccessful() to determine if the response indicates success.<br>HTTP response 仍然可以指示应用程序级故障，如404或500。调用Response.isSuccessful()，以确定是否该响应指示成功。</p>
+<p><strong>简单使用</strong> </p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    public void onResponse(Call&lt;List&lt;Repo&gt;&gt; call,Response&lt;List&lt;Repo&gt;&gt; response) &#123;</div><div class="line">        // Get result Repo from response.body()</div><div class="line">       if(response.isSuccessful())&#123;</div><div class="line">           List&lt;Repo&gt; repos = response.body();</div><div class="line">          //对数据的处理操作</div><div class="line">       &#125;else&#123;</div><div class="line">        //请求出现错误例如：404 或者 500</div><div class="line">       &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>而关于 onFailure方法的调用，网上也并没有给出明确的调用时机，而官方文档给出解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;com.nanke.cook.view.AutoSwipeRefreshLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:id=&quot;@+id/swipeRefreshLayout&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;</div><div class="line">    android:background=&quot;@android:color/white&quot;&gt;</div><div class="line"></div><div class="line">    &lt;com.kevin.wraprecyclerview.WrapRecyclerView</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:id=&quot;@+id/recycleView&quot;</div><div class="line">        android:padding=&quot;4dp&quot;</div><div class="line">        /&gt;</div><div class="line"></div><div class="line">&lt;/com.nanke.cook.view.AutoSwipeRefreshLayout&gt;t&gt;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>Invoked when a network exception occurred talking to the server or when an unexpected exception occurred creating the request or processing the response.<br>当连接服务器时出现网络异常 或者 在创建请求、处理响应结果 的时候突发异常 都会被调用。</p>
+<p><strong>出现的问题</strong>：在刚进入到界面的时候需要显示刷新进度条，通过直接设置setRefreshing(true); 没有效果， 并没有显示</p>
 </blockquote>
-<p>通过自己测试发现了几种调用情况：<strong>GSON解析数据转换错误</strong>，<strong>手机断网或者网络异常</strong>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void onFailure(Call&lt;List&lt;Repo&gt;&gt; call,Throwable t) &#123;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>原因分析：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2149115-a3a4efb3e846071e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="日志"></p>
+<p>由日志可以看出，在onMeasure 绘制之前，就调用了 setRefreshing,而在activity获取焦点过后，即onResume执行完毕后，View才会相应地调用onMeasure测量自身的大小，再来看 setRefreshing(boolean refreshing) 的源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public void setRefreshing(boolean refreshing) &#123;</div><div class="line">    if (refreshing &amp;&amp; mRefreshing != refreshing) &#123;</div><div class="line">        // scale and show</div><div class="line">        mRefreshing = refreshing;</div><div class="line">        int endTarget = 0;</div><div class="line">        if (!mUsingCustomStart) &#123;</div><div class="line">            endTarget = (int) (mSpinnerFinalOffset + mOriginalOffsetTop);</div><div class="line">        &#125; else &#123;</div><div class="line">            endTarget = (int) mSpinnerFinalOffset;</div><div class="line">        &#125;</div><div class="line">      //设置 显示刷新进度条的位置</div><div class="line">        setTargetOffsetTopAndBottom(endTarget - mCurrentTargetOffsetTop,</div><div class="line">                true /* requires update */);</div><div class="line">        mNotify = false;</div><div class="line">        startScaleUpAnimation(mRefreshListener);</div><div class="line">    &#125; else &#123;</div><div class="line">        setRefreshing(refreshing, false /* notify */);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由上面可以看出,主要通过 setTargetOffsetTopAndBottom 来确定所要显示的位置，接着来看一下 setTargetOffsetTopAndBottom 的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">private void setTargetOffsetTopAndBottom(int offset, boolean requiresUpdate) &#123;</div><div class="line">        mCircleView.bringToFront();</div><div class="line">        mCircleView.offsetTopAndBottom(offset);</div><div class="line">        mCurrentTargetOffsetTop = mCircleView.getTop();</div><div class="line">        if (requiresUpdate &amp;&amp; android.os.Build.VERSION.SDK_INT &lt; 11) &#123;</div><div class="line">            invalidate();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，只是对 mCircleView 的属性进行设置，并没有主动调用 invalidate 去绘制，只有当 sdk&lt;11时，做了调用。<br>所以也就很好理解，我们在还没有绘制之前，就设置显示刷新进度条，显示的位置都还没有确定,当然就不会显示了。</p>
+<blockquote>
+<p>下面分析一下，网上出现的几种解决方案</p>
+</blockquote>
+<p><strong>方案一</strong>：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">refresh.setProgressViewOffset(false, 0, CommonUtil.dip2px(context, 24));</div><div class="line">refresh.setRefreshing(true);</div></pre></td></tr></table></figure></p>
+<p>通过 setProgressViewOffset 初始化一个偏移量，同样分析一下源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public void setProgressViewOffset(boolean scale, int start, int end) &#123;</div><div class="line">        mScale = scale;</div><div class="line">        mCircleView.setVisibility(View.GONE);</div><div class="line">        mOriginalOffsetTop = mCurrentTargetOffsetTop = start;</div><div class="line">        mSpinnerFinalOffset = end;</div><div class="line">        mUsingCustomStart = true;</div><div class="line">        mCircleView.invalidate();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>在 setProgressViewOffset 中 ，最终 执行了mCircleView.invalidate(),去主动绘制。</p>
+<p><strong>方案二</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mSwipeRefreshLayout.post(new Runnable() &#123;</div><div class="line">               </div><div class="line">        @Override</div><div class="line">        public void run() &#123;</div><div class="line">            mSwipeRefreshLayout.setRefreshing(true);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div></pre></td></tr></table></figure></p>
+<p>通过post(Runnable runnable)方法放到UI线程排队执行。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>总结一下解决方法，就是在 SwipeRefreshLayout.onMeasure()之后，调用SwipeRefreshLayout.setRefreshing(true) 就好了。 总的来说，从这个问题可以看出，在Activity的生命周期以及 View的生命周期 ，它们是相互影响的，通过SwipeRefreshLayout出现的问题，也可以更好的理解它们之间的关系。</p>
+<p>上面的分析也只是我个人的理解，如果有什么不对的地方，希望大家能指出，多多指教。</p>
+
       
     </div>
 
@@ -367,28 +372,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Retrofit2-1/" rel="tag">#Retrofit2.1</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/11/Retrofit2-1学习-与Rxjava结合使用/" rel="next" title="Retrofit2.1学习:与Rxjava结合使用">
-                <i class="fa fa-chevron-left"></i> Retrofit2.1学习:与Rxjava结合使用
+              <a href="/2016/12/16/图片加载框架的简单设计/" rel="next" title="图片加载框架的简单设计">
+                <i class="fa fa-chevron-left"></i> 图片加载框架的简单设计
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/25/图片加载库Glide的入门使用/" rel="prev" title="图片加载库Glide的入门使用">
-                图片加载库Glide的入门使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -414,8 +409,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/14/Retrofit2-1学习：Call接口的使用/"
-           data-title="Retrofit2.1学习：Call接口的使用" data-url="https://woshishenxian.github.io/2016/11/14/Retrofit2-1学习：Call接口的使用/">
+      <div class="ds-thread" data-thread-key="2016/12/28/那些年我们踩过的坑-SwipeRefreshLayout/"
+           data-title="那些年我们踩过的坑-SwipeRefreshLayout" data-url="https://woshishenxian.github.io/2016/12/28/那些年我们踩过的坑-SwipeRefreshLayout/">
       </div>
     
   </div>
@@ -533,7 +528,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加INTERNET权限"><span class="nav-number">2.</span> <span class="nav-text">添加INTERNET权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Call-接口的实例化"><span class="nav-number">3.</span> <span class="nav-text">Call 接口的实例化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同步请求"><span class="nav-number">4.</span> <span class="nav-text">同步请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步请求"><span class="nav-number">5.</span> <span class="nav-text">异步请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消正在进行中的业务"><span class="nav-number">6.</span> <span class="nav-text">取消正在进行中的业务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Callback-回调的使用"><span class="nav-number">7.</span> <span class="nav-text">Callback 回调的使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
         </section>
