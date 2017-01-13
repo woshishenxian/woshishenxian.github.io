@@ -2,6 +2,9 @@
 
 个人博客 会不定期更新
 
+## 2016-1-13
+更新文章：android动画入门：属性动画更新文章：android动画入门：View动画和帧动画更新文章：Android开发：聊聊WebView的使用更新文章：ButterKnife8的配置及使用更新文章：ButterKnife的使用：插件安装更新文章：android6-0：动态权限申请更新文章：再谈Retrofit：文件的上传下载及进度显示更新文章：Android性能优化方法：布局优化更新文章：Rxjava学习：线程控制Scheduler
+
 ## 2016-12-28
 - 更新文章：那些年我们踩过的坑-SwipeRefreshLayout
 
