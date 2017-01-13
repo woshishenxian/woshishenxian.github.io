@@ -1,0 +1,712 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VENS/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VENS/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Retrofit2.1," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="博客-南柯的小屋" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/woshishenxian/woshishenxian.github.io/master/images/bitbug_favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言前面介绍了很多关于Retrofit2的基本使用，下面就单独介绍一下如何使用Retrofit2实现文件上传和文件下载，并且做了一点拓展，重点介绍了一下上传和下载过程中进度的显示。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再谈Retrofit：文件的上传下载及进度显示">
+<meta property="og:url" content="https://woshishenxian.github.io/2017/01/13/再谈Retrofit：文件的上传下载及进度显示/index.html">
+<meta property="og:site_name" content="博客-南柯的小屋">
+<meta property="og:description" content="前言前面介绍了很多关于Retrofit2的基本使用，下面就单独介绍一下如何使用Retrofit2实现文件上传和文件下载，并且做了一点拓展，重点介绍了一下上传和下载过程中进度的显示。">
+<meta property="og:updated_time" content="2017-01-13T09:01:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="再谈Retrofit：文件的上传下载及进度显示">
+<meta name="twitter:description" content="前言前面介绍了很多关于Retrofit2的基本使用，下面就单独介绍一下如何使用Retrofit2实现文件上传和文件下载，并且做了一点拓展，重点介绍了一下上传和下载过程中进度的显示。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://woshishenxian.github.io/2017/01/13/再谈Retrofit：文件的上传下载及进度显示/"/>
+
+  <title> 再谈Retrofit：文件的上传下载及进度显示 | 博客-南柯的小屋 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">博客-南柯的小屋</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                再谈Retrofit：文件的上传下载及进度显示
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-13T17:01:04+08:00" content="2017-01-13">
+              2017-01-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android框架探索/" itemprop="url" rel="index">
+                    <span itemprop="name">android框架探索</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/13/再谈Retrofit：文件的上传下载及进度显示/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/再谈Retrofit：文件的上传下载及进度显示/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>前面介绍了很多关于Retrofit2的基本使用，下面就单独介绍一下如何使用Retrofit2实现文件上传和文件下载，并且做了一点拓展，重点介绍了一下上传和下载过程中进度的显示。<br><a id="more"></a></p>
+<h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><blockquote>
+<p>定义接口</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@Multipart</div><div class="line">@POST(&quot;url&quot;)</div><div class="line">Call&lt;Result&gt; uploadFile(@Part RequestBody file);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>构造所要上传的RequestBody</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">File file = new File(filePath);</div><div class="line">RequestBody body = RequestBody.create(MediaType.parse(&quot;multipart/form-data&quot;), file);</div><div class="line">Call&lt;String&gt; call = fileService.uploadFile(body);</div><div class="line">call.enqueue(callback);</div></pre></td></tr></table></figure>
+<p>通过Retrofit提供的方法就可以很简单的将文件上传到服务器，但通常上传文件时，都会加上文件的上传进度，这样交互会显得更加友好。而Retrofit本身是不支持文件上传进度显示的，所以就需要我们自己扩展OkHttp来实现文件上传进度。</p>
+<p>我的做法是直接扩展一个RequestBody来实现进度显示，实现完成之后只需要将上面body进行包装转换即可。</p>
+<blockquote>
+<p>首先封装一个RetrofitCallback，用于进度的回调。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public abstract class RetrofitCallback&lt;T&gt; implements Callback&lt;T&gt; &#123;</div><div class="line">    @Override</div><div class="line">    public void onResponse(Call&lt;T&gt; call, Response&lt;T&gt; response) &#123;</div><div class="line">        if(response.isSuccessful()) &#123;</div><div class="line">            onSuccess(call, response);</div><div class="line">        &#125; else &#123;</div><div class="line">            onFailure(call, new Throwable(response.message()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public abstract void onSuccess(Call&lt;T&gt; call, Response&lt;T&gt; response);</div><div class="line">   //用于进度的回调</div><div class="line">    public abstract void onLoading(long total, long progress) ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>第二步，扩展OkHttp的请求体，编写包装类FileRequestBody，对RequestBody进行包装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">public final class FileRequestBody&lt;T&gt; extends RequestBody &#123;</div><div class="line">  /**</div><div class="line">   * 实际请求体</div><div class="line">   */</div><div class="line">  private RequestBody requestBody;</div><div class="line">  /**</div><div class="line">   * 上传回调接口</div><div class="line">   */</div><div class="line">  private RetrofitCallback&lt;T&gt; callback;</div><div class="line">  /**</div><div class="line">   * 包装完成的BufferedSink</div><div class="line">   */</div><div class="line">  private BufferedSink bufferedSink;</div><div class="line">  public FileRequestBody(RequestBody requestBody, RetrofitCallback&lt;T&gt; callback) &#123;</div><div class="line">    super();</div><div class="line">    this.requestBody = requestBody;</div><div class="line">    this.callback = callback;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public long contentLength() throws IOException &#123;</div><div class="line">    return requestBody.contentLength();</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public MediaType contentType() &#123;</div><div class="line">    return requestBody.contentType();</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void writeTo(BufferedSink sink) throws IOException &#123;</div><div class="line">    if (bufferedSink == null) &#123;</div><div class="line">      //包装</div><div class="line">      bufferedSink = Okio.buffer(sink(sink));</div><div class="line">    &#125;</div><div class="line">    //写入</div><div class="line">    requestBody.writeTo(bufferedSink);</div><div class="line">    //必须调用flush，否则最后一部分数据可能不会被写入</div><div class="line">    bufferedSink.flush();</div><div class="line">  &#125;</div><div class="line">  /**</div><div class="line">   * 写入，回调进度接口</div><div class="line">   * @param sink Sink</div><div class="line">   * @return Sink</div><div class="line">   */</div><div class="line">  private Sink sink(Sink sink) &#123;</div><div class="line">    return new ForwardingSink(sink) &#123;</div><div class="line">      //当前写入字节数</div><div class="line">      long bytesWritten = 0L;</div><div class="line">      //总字节长度，避免多次调用contentLength()方法</div><div class="line">      long contentLength = 0L;</div><div class="line">      @Override</div><div class="line">      public void write(Buffer source, long byteCount) throws IOException &#123;</div><div class="line">        super.write(source, byteCount);</div><div class="line">        if (contentLength == 0) &#123;</div><div class="line">          //获得contentLength的值，后续不再调用</div><div class="line">          contentLength = contentLength();</div><div class="line">        &#125;</div><div class="line">        //增加当前写入的字节数</div><div class="line">        bytesWritten += byteCount;</div><div class="line">        //回调</div><div class="line">        callback.onLoading(contentLength, bytesWritten);</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>最后，通过onLoading(long total, long progress) ，更新上传进度</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">RetrofitCallback&lt; String &gt; callback = new RetrofitCallback&lt; Result &gt;() &#123;</div><div class="line">   @Override</div><div class="line">    public void onSuccess(Call&lt; String &gt; call, Response&lt; String &gt; response) &#123;</div><div class="line">        runOnUIThread(activity, response.body().toString());</div><div class="line">        //进度更新结束</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public void onFailure(Call&lt; String &gt; call, Throwable t) &#123;</div><div class="line">        runOnUIThread(activity, t.getMessage());</div><div class="line">        //进度更新结束</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public void onLoading(long total, long progress) &#123;</div><div class="line">        super.onLoading(total, progress);</div><div class="line">        //此处进行进度更新</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">RequestBody resquestBody = RequestBody.create(MediaType.parse(&quot;multipart/form-data&quot;), file);</div><div class="line">//通过该行代码将RequestBody转换成特定的FileRequestBody</div><div class="line">FileRequestBody body = new FileRequestBody(resquestBody, callback);</div><div class="line">Call&lt;String&gt; call = fileService.uploadOneFile(body);</div><div class="line">call.enqueue(callback);</div></pre></td></tr></table></figure>
+<h4 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h4><blockquote>
+<p>接口定义</p>
+</blockquote>
+<p>文件下载请求与普通的Get和Post请求是一样的，只是他们的返回值不一样而已，文件下载请求的返回值一般定义成ResponseBody</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//这里只举例POST方式进行文件下载</div><div class="line">@FormUrlEncoded</div><div class="line">@POST(&quot;fileService&quot;)</div><div class="line">Call&lt;ResponseBody&gt; downloadFile(@Field(&quot;param&quot;) String param);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>发起请求</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">RetrofitCallback&lt;ResponseBody&gt; callback = new RetrofitCallback&lt;ResponseBody&gt;() &#123;</div><div class="line">    @Override</div><div class="line">    public void onSuccess(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response) &#123;</div><div class="line">        try &#123;</div><div class="line">            InputStream is = response.body().byteStream();</div><div class="line">            String path = Util.getSdCardPath();</div><div class="line">            File file = new File(path, &quot;download.jpg&quot;);</div><div class="line">            FileOutputStream fos = new FileOutputStream(file);</div><div class="line">            BufferedInputStream bis = new BufferedInputStream(is);</div><div class="line">            byte[] buffer = new byte[1024];</div><div class="line">            int len;</div><div class="line">            while ((len = bis.read(buffer)) != -1) &#123;</div><div class="line">                fos.write(buffer, 0, len);</div><div class="line">            &#125;</div><div class="line">            fos.flush();</div><div class="line">            fos.close();</div><div class="line">            bis.close();</div><div class="line">            is.close();</div><div class="line">        &#125; catch (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public void onFailure(Call&lt;ResponseBody&gt; call, Throwable t) &#123;</div><div class="line">        runOnUIThread(activity, t.getMessage());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">   @Override</div><div class="line">   public void onLoading(long total, long progress)&#123;</div><div class="line">    //更新下载进度</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;;</div><div class="line">        </div><div class="line">Call&lt;ResponseBody&gt; call = getRetrofitService(callback).downloadFile(param);</div><div class="line">call.enqueue(callback);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>下载进度显示</p>
+</blockquote>
+<p>通过OkHttp设置拦截器将ResponseBody进行转换成我们扩展后的ResponseBody</p>
+<p><strong> 扩展ResponseBody设置OkHttp拦截器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">private &lt;T&gt; RetrofitService getRetrofitService(final RetrofitCallback&lt;T&gt; callback) &#123;</div><div class="line">    OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();</div><div class="line">    clientBuilder.addInterceptor(new Interceptor() &#123;</div><div class="line">        @Override</div><div class="line">        public okhttp3.Response intercept(Chain chain) throws IOException &#123;</div><div class="line">            okhttp3.Response response = chain.proceed(chain.request());</div><div class="line">            //将ResponseBody转换成我们需要的FileResponseBody</div><div class="line">            return response.newBuilder().body(new FileResponseBody&lt;T&gt;(response.body(), callback)).build();</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    Retrofit retrofit = new Retrofit.Builder()</div><div class="line">            .baseUrl(BASE_URL)</div><div class="line">            .client(clientBuilder.build())</div><div class="line">            .addConverterFactory(GsonConverterFactory.create())</div><div class="line">            .build();</div><div class="line">    RetrofitService service = retrofit.create(RetrofitService.class);</div><div class="line">    return service ;</div><div class="line">&#125;</div><div class="line">//通过上面的设置后，我们需要在回调RetrofitCallback中实现onLoading方法来进行进度的更新操作，与上传文件的方法相同</div></pre></td></tr></table></figure>
+<p><strong>FileResponseBody</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 扩展OkHttp的请求体，实现上传时的进度提示</div><div class="line"> *</div><div class="line"> * @param &lt;T&gt;</div><div class="line"> */</div><div class="line">public final class FileResponseBody&lt;T&gt; extends ResponseBody &#123;</div><div class="line">  /**</div><div class="line">   * 实际请求体</div><div class="line">   */</div><div class="line">  private ResponseBody mResponseBody;</div><div class="line">  /**</div><div class="line">   * 下载回调接口</div><div class="line">   */</div><div class="line">  private RetrofitCallback&lt;T&gt; mCallback;</div><div class="line">  /**</div><div class="line">   * BufferedSource</div><div class="line">   */</div><div class="line">  private BufferedSource mBufferedSource;</div><div class="line">  public FileResponseBody(ResponseBody responseBody, RetrofitCallback&lt;T&gt; callback) &#123;</div><div class="line">    super();</div><div class="line">    this.mResponseBody = responseBody;</div><div class="line">    this.mCallback = callback;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public BufferedSource source() &#123;</div><div class="line">    if (mBufferedSource == null) &#123;</div><div class="line">      mBufferedSource = Okio.buffer(source(mResponseBody.source()));</div><div class="line">    &#125;</div><div class="line">    return mBufferedSource;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public long contentLength() &#123;</div><div class="line">    return mResponseBody.contentLength();</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public MediaType contentType() &#123;</div><div class="line">    return mResponseBody.contentType();</div><div class="line">  &#125;</div><div class="line">  /**</div><div class="line">   * 回调进度接口</div><div class="line">   * @param source</div><div class="line">   * @return Source</div><div class="line">   */</div><div class="line">  private Source source(Source source) &#123;</div><div class="line">    return new ForwardingSource(source) &#123;</div><div class="line">      long totalBytesRead = 0L;</div><div class="line">      @Override</div><div class="line">      public long read(Buffer sink, long byteCount) throws IOException &#123;</div><div class="line">        long bytesRead = super.read(sink, byteCount);</div><div class="line">        totalBytesRead += bytesRead != -1 ? bytesRead : 0;</div><div class="line">        mCallback.onLoading(mResponseBody.contentLength(), totalBytesRead);</div><div class="line">        return bytesRead;</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>依照惯例，最后都要有一个总结，先感叹一下retrofit的强大。ok，再来说一下使用过程中的感受，从本文中也感受的到，就是retrofit大量的引入了对okhttp 应用，所以要想用好retrofit ，学好okhttp 也是必须的，不说了，啃代码去了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Retrofit2-1/" rel="tag">#Retrofit2.1</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/13/Android性能优化方法：布局优化/" rel="next" title="Android性能优化方法：布局优化">
+                <i class="fa fa-chevron-left"></i> Android性能优化方法：布局优化
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/13/android6-0：动态权限申请/" rel="prev" title="android6.0：动态权限申请">
+                android6.0：动态权限申请 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/13/再谈Retrofit：文件的上传下载及进度显示/"
+           data-title="再谈Retrofit：文件的上传下载及进度显示" data-url="https://woshishenxian.github.io/2017/01/13/再谈Retrofit：文件的上传下载及进度显示/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img1.2345.com/duoteimg/qqTxImg/2013/12/ns/18-024824_754.jpg"
+               alt="南柯的小屋" />
+          <p class="site-author-name" itemprop="name">南柯的小屋</p>
+          <p class="site-description motion-element" itemprop="description">生命不止，折腾不惜。。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/woshishenxian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/2c959b909679/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件上传"><span class="nav-number">2.</span> <span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件下载"><span class="nav-number">3.</span> <span class="nav-text">文件下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南柯的小屋</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VENS/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VENS/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"vince"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/VENS/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

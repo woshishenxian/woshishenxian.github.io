@@ -1,0 +1,710 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VENS/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VENS/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="博客-南柯的小屋" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/woshishenxian/woshishenxian.github.io/master/images/bitbug_favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言ButterKnife 的插件提供了更快的@BindView 及 @OnClick 方案，同时也会更方便管理每一个实例化后的View。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ButterKnife的使用：插件安装">
+<meta property="og:url" content="https://woshishenxian.github.io/2017/01/13/ButterKnife的使用：插件安装/index.html">
+<meta property="og:site_name" content="博客-南柯的小屋">
+<meta property="og:description" content="前言ButterKnife 的插件提供了更快的@BindView 及 @OnClick 方案，同时也会更方便管理每一个实例化后的View。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-67efafcf4b0267d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-e71a1c3dbcd56bf9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-d9c7a90a82763902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-5f8332a1f9bbcfc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-e4dd0443a23c6eef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-ab6a124d4ee37fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-5d36be7234544c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-dd2afccdc1aa79d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-9872193a5d88e1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-68f71cb066a615e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-37b058452864cac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-f9374e41e8e847e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-01-13T09:03:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ButterKnife的使用：插件安装">
+<meta name="twitter:description" content="前言ButterKnife 的插件提供了更快的@BindView 及 @OnClick 方案，同时也会更方便管理每一个实例化后的View。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2149115-67efafcf4b0267d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://woshishenxian.github.io/2017/01/13/ButterKnife的使用：插件安装/"/>
+
+  <title> ButterKnife的使用：插件安装 | 博客-南柯的小屋 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">博客-南柯的小屋</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ButterKnife的使用：插件安装
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-13T17:03:12+08:00" content="2017-01-13">
+              2017-01-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android框架探索/" itemprop="url" rel="index">
+                    <span itemprop="name">android框架探索</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/13/ButterKnife的使用：插件安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/ButterKnife的使用：插件安装/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>ButterKnife 的插件提供了更快的@BindView 及 @OnClick 方案，同时也会更方便管理每一个实例化后的View。<br><a id="more"></a></p>
+<h4 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h4><p>该插件的安装实际上与其他插件安装并没有不同：</p>
+<blockquote>
+<p>以下以android studio 2.0作为示例</p>
+</blockquote>
+<ol>
+<li><p>首先找到 ‘Preferences’，点开菜单<br><img src="http://upload-images.jianshu.io/upload_images/2149115-67efafcf4b0267d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图01"></p>
+</li>
+<li><p>然后找到Plugins 选项，搜索ButterKnife ，如果尚未找到插件，则选择Search in repositories，进行搜索。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-e71a1c3dbcd56bf9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图02"></p>
+</li>
+<li><p>从搜索结果中选择 Android ButterKnife Zelezny ，进行安装，安装完成点击重启按钮，进行重启。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-d9c7a90a82763902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图03"><br><img src="http://upload-images.jianshu.io/upload_images/2149115-5f8332a1f9bbcfc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图04"></p>
+</li>
+</ol>
+<p>这样通过以上的步骤插件就安装成功了，下面看一下如何使用。</p>
+<h4 id="插件使用"><a href="#插件使用" class="headerlink" title="插件使用"></a>插件使用</h4><ol>
+<li><p>首先在插件使用之前，需要对使用的项目在build.gradle 添加对 ButterKnife 的依赖：</p>
+<ul>
+<li>如果butterKnife使用的版本为7.0或者以下的话，只需要单独引入即可。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-e4dd0443a23c6eef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图"></li>
+<li>butterKnife 最新版本为 8.4.0 ，同时新版本将注解实现方式改为annotationProcessor(编译时注解），因此需要用户引入更多配置。<br>首先，在Project的build.grade 中如图添加:<br><img src="http://upload-images.jianshu.io/upload_images/2149115-ab6a124d4ee37fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>接下来，在app的build.gradle中添加声明，并引入依赖。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-5d36be7234544c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/2149115-dd2afccdc1aa79d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+</ul>
+</li>
+<li><p>接下来就可以对插件进行使用了：<br>双击选中布局的文件名，找到’Generate…’选项，点击打开。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-9872193a5d88e1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插件06"></p>
+</li>
+<li><p>在新的菜单中选中，Generate ButterKnife Injections 选项。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-68f71cb066a615e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图07"> </p>
+</li>
+<li><p>插件会自动检测布局文件中的带有id属性的view，并提供，快速 实例化与监听事件 两种方式的注解选项，根据自己的需要选择，点击确定，快速生成。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-37b058452864cac2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图08"></p>
+</li>
+<li><p>最终生成的注解。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-f9374e41e8e847e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插图09"></p>
+</li>
+</ol>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>基本关于插件的使用就这些了，ButterKnife 的使用可不仅仅只有实例化与点击事件两种，ButterKnife 提供了更丰富的注解方式，熟练的运用，对快速的开发将会有很大的帮助。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/13/android6-0：动态权限申请/" rel="next" title="android6.0：动态权限申请">
+                <i class="fa fa-chevron-left"></i> android6.0：动态权限申请
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/13/ButterKnife8的配置及使用/" rel="prev" title="ButterKnife8的配置及使用">
+                ButterKnife8的配置及使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/13/ButterKnife的使用：插件安装/"
+           data-title="ButterKnife的使用：插件安装" data-url="https://woshishenxian.github.io/2017/01/13/ButterKnife的使用：插件安装/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img1.2345.com/duoteimg/qqTxImg/2013/12/ns/18-024824_754.jpg"
+               alt="南柯的小屋" />
+          <p class="site-author-name" itemprop="name">南柯的小屋</p>
+          <p class="site-description motion-element" itemprop="description">生命不止，折腾不惜。。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/woshishenxian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/2c959b909679/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装步骤"><span class="nav-number">2.</span> <span class="nav-text">安装步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插件使用"><span class="nav-number">3.</span> <span class="nav-text">插件使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南柯的小屋</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VENS/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VENS/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"vince"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/VENS/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

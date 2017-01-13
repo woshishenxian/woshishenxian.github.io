@@ -1,0 +1,703 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VENS/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VENS/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="博客-南柯的小屋" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/woshishenxian/woshishenxian.github.io/master/images/bitbug_favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言Android 6.0 虽然相对于上一个版本 更新幅度较小，但也带来了一写全新的特性，这里就主要谈一谈 android 6.0–权限管理，开发过程中，就需要开发者去动态的权限申请。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android6.0：动态权限申请">
+<meta property="og:url" content="https://woshishenxian.github.io/2017/01/13/android6-0：动态权限申请/index.html">
+<meta property="og:site_name" content="博客-南柯的小屋">
+<meta property="og:description" content="前言Android 6.0 虽然相对于上一个版本 更新幅度较小，但也带来了一写全新的特性，这里就主要谈一谈 android 6.0–权限管理，开发过程中，就需要开发者去动态的权限申请。">
+<meta property="og:updated_time" content="2017-01-13T09:02:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android6.0：动态权限申请">
+<meta name="twitter:description" content="前言Android 6.0 虽然相对于上一个版本 更新幅度较小，但也带来了一写全新的特性，这里就主要谈一谈 android 6.0–权限管理，开发过程中，就需要开发者去动态的权限申请。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://woshishenxian.github.io/2017/01/13/android6-0：动态权限申请/"/>
+
+  <title> android6.0：动态权限申请 | 博客-南柯的小屋 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">博客-南柯的小屋</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                android6.0：动态权限申请
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-13T17:02:19+08:00" content="2017-01-13">
+              2017-01-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android框架探索/" itemprop="url" rel="index">
+                    <span itemprop="name">android框架探索</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/13/android6-0：动态权限申请/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/android6-0：动态权限申请/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Android 6.0 虽然相对于上一个版本 更新幅度较小，但也带来了一写全新的特性，这里就主要谈一谈 android 6.0–权限管理，开发过程中，就需要开发者去动态的权限申请。<br><a id="more"></a></p>
+<h3 id="动态权限申请"><a href="#动态权限申请" class="headerlink" title="动态权限申请"></a>动态权限申请</h3><p>Google从一开始就把权限分为两类，一种是不涉及用户隐私的权限：Normal Permission （普通权限），不需要用户去主动授权，在AndroidManifest.xml文件中声明即可，另一种就是需要用户授权才能使用的权限：Dangerous Permission（高危权限），同样需要在AndroidManifest.xml中声明。</p>
+<h5 id="何时需要动态权限申请"><a href="#何时需要动态权限申请" class="headerlink" title="何时需要动态权限申请"></a>何时需要动态权限申请</h5><p>targetSdkVersion &gt;=23 ，只有当我们把targetSdkVersion设置为大于等于23的时候，才会需要主动的申请权限，如果不想启用该方式，只要把targetSdkVersion 设置为 22或更小版本即可。</p>
+<h5 id="有哪些权限需要动态申请"><a href="#有哪些权限需要动态申请" class="headerlink" title="有哪些权限需要动态申请"></a>有哪些权限需要动态申请</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">group:android.permission-group.CONTACTS</div><div class="line">  permission:android.permission.WRITE_CONTACTS</div><div class="line">  permission:android.permission.GET_ACCOUNTS</div><div class="line">  permission:android.permission.READ_CONTACTS</div><div class="line"></div><div class="line">group:android.permission-group.PHONE</div><div class="line">  permission:android.permission.READ_CALL_LOG</div><div class="line">  permission:android.permission.READ_PHONE_STATE</div><div class="line">  permission:android.permission.CALL_PHONE</div><div class="line">  permission:android.permission.WRITE_CALL_LOG</div><div class="line">  permission:android.permission.USE_SIP</div><div class="line">  permission:android.permission.PROCESS_OUTGOING_CALLS</div><div class="line">  permission:com.android.voicemail.permission.ADD_VOICEMAIL</div><div class="line"></div><div class="line">group:android.permission-group.CALENDAR</div><div class="line">  permission:android.permission.READ_CALENDAR</div><div class="line">  permission:android.permission.WRITE_CALENDAR</div><div class="line"></div><div class="line">group:android.permission-group.CAMERA</div><div class="line">  permission:android.permission.CAMERA</div><div class="line"></div><div class="line">group:android.permission-group.SENSORS</div><div class="line">  permission:android.permission.BODY_SENSORS</div><div class="line"></div><div class="line">group:android.permission-group.LOCATION</div><div class="line">  permission:android.permission.ACCESS_FINE_LOCATION</div><div class="line">  permission:android.permission.ACCESS_COARSE_LOCATION</div><div class="line"></div><div class="line">group:android.permission-group.STORAGE</div><div class="line">  permission:android.permission.READ_EXTERNAL_STORAGE</div><div class="line">  permission:android.permission.WRITE_EXTERNAL_STORAGE</div><div class="line"></div><div class="line">group:android.permission-group.MICROPHONE</div><div class="line">  permission:android.permission.RECORD_AUDIO</div><div class="line"></div><div class="line">group:android.permission-group.SMS</div><div class="line">  permission:android.permission.READ_SMS</div><div class="line">  permission:android.permission.RECEIVE_WAP_PUSH</div><div class="line">  permission:android.permission.RECEIVE_MMS</div><div class="line">  permission:android.permission.RECEIVE_SMS</div><div class="line">  permission:android.permission.SEND_SMS</div><div class="line">  permission:android.permission.READ_CELL_BROADCASTS</div></pre></td></tr></table></figure>
+<p>以上就是需要主动申请的权限了也是前面提到的 Dangerous Permission（高危权限），可以发现以上权限是<strong>一组一组</strong>出现的，android提供了这样的分组，当该组中任意一个权限授权成功，默认整组权限获得授权。当然，在开发过程中，最好还是只对用到的权限做申请，毕竟后面的版本权限组也是会发生改变的。</p>
+<h3 id="申请流程"><a href="#申请流程" class="headerlink" title="申请流程"></a>申请流程</h3><blockquote>
+<p>谷歌提供的官方demo<br><a href="https://github.com/googlesamples/android-RuntimePermissions" target="_blank" rel="external">https://github.com/googlesamples/android-RuntimePermissions</a></p>
+</blockquote>
+<p>#####这里我总结了一下流程：</p>
+<ol>
+<li><p>在AndroidManifest文件中添加需要的权限。这个步骤和我们之前的开发并没有什么变化，试图去申请一个没有声明的权限可能会导致程序崩溃。</p>
+</li>
+<li><p>检查权限是否已授权，如果已经授权，则直接进行想要的操作即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)</div><div class="line">                != PackageManager.PERMISSION_GRANTED) &#123;</div><div class="line">        //未授权，提起权限申请</div><div class="line">        &#125; else &#123;</div><div class="line">        //权限已授权，功能操作</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这里用到了一个方法，ActivityCompat.checkSelfPermission，用于判断app是否已经对某个权限授权，该方法只有两个返回值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PackageManager.PERMISSION_DENIED //表示尚未授权</div><div class="line">PackageManager.PERMISSION_GRANTED //表示已授权</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>如果尚未授权，这里根据demo的流程 用到了<br>ActivityCompat.shouldShowRequestPermissionRationale 方法检查，用户是否曾经拒绝过授权，如果拒绝过，则开发者可以自定义内容去提醒用户该权限的用途，引导用户授权。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (ActivityCompat.shouldShowRequestPermissionRationale(this,</div><div class="line">                Manifest.permission.CAMERA)) &#123;</div><div class="line">          //用于开发者提示用户权限的用途</div><div class="line">        &#125; else &#123;</div><div class="line">        //申请权限</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果是首次，则发起申请。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ActivityCompat.requestPermissions(MainActivity.this,</div><div class="line">                                   new String[]&#123;Manifest.permission.CAMERA&#125;,</div><div class="line">                                   REQUEST_CAMERA);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>ActivityCompat.requestPermissions，权限申请，这里出入的权限是一个数组集合，可以同时申请多个权限。</p>
+<ol>
+<li>权限申请的回调处理。<br>首先需要实现接口ActivityCompat.OnRequestPermissionsResultCallback，注意一点，该接口必须由 Activity 或者其子类来实现，如果该实现类是FragmentActivity 的子类则不需要再去实现，因为FragmentActivity已经实现了该接口，接下来重写回调方法onRequestPermissionsResult。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,</div><div class="line">            @NonNull int[] grantResults) &#123;</div><div class="line">        //判断请求码，确定当前申请的权限</div><div class="line">        if (requestCode == REQUEST_CAMERA) &#123;</div><div class="line">            //判断权限是否申请通过</div><div class="line">            if (grantResults.length == 1 &amp;&amp; grantResults[0] == PackageManager.PERMISSION_GRANTED) &#123;</div><div class="line">                //授权成功</div><div class="line">            &#125; else &#123;</div><div class="line">                //授权失败</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123;</div><div class="line">            super.onRequestPermissionsResult(requestCode, permissions, grantResults);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>回调方法的返回结果：</p>
+<ul>
+<li>requestCode ：请求码，在提交申请权限时，传入的请求码一致。</li>
+<li>permissions：申请的权限数组。</li>
+<li>grantResults：权限申请结果，与permissions 一一对用，表示各个权限的授权情况。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>关于android 6.0 的权限动态申请，虽然对于开发者来说，比较麻烦，但从用户角度来看，还是相当好的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/13/再谈Retrofit：文件的上传下载及进度显示/" rel="next" title="再谈Retrofit：文件的上传下载及进度显示">
+                <i class="fa fa-chevron-left"></i> 再谈Retrofit：文件的上传下载及进度显示
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/13/ButterKnife的使用：插件安装/" rel="prev" title="ButterKnife的使用：插件安装">
+                ButterKnife的使用：插件安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/13/android6-0：动态权限申请/"
+           data-title="android6.0：动态权限申请" data-url="https://woshishenxian.github.io/2017/01/13/android6-0：动态权限申请/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img1.2345.com/duoteimg/qqTxImg/2013/12/ns/18-024824_754.jpg"
+               alt="南柯的小屋" />
+          <p class="site-author-name" itemprop="name">南柯的小屋</p>
+          <p class="site-description motion-element" itemprop="description">生命不止，折腾不惜。。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/woshishenxian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/2c959b909679/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态权限申请"><span class="nav-number">2.</span> <span class="nav-text">动态权限申请</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#何时需要动态权限申请"><span class="nav-number">2.0.1.</span> <span class="nav-text">何时需要动态权限申请</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#有哪些权限需要动态申请"><span class="nav-number">2.0.2.</span> <span class="nav-text">有哪些权限需要动态申请</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#申请流程"><span class="nav-number">3.</span> <span class="nav-text">申请流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南柯的小屋</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VENS/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VENS/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"vince"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/VENS/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

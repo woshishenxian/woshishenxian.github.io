@@ -1,0 +1,750 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VENS/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VENS/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="博客-南柯的小屋" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/woshishenxian/woshishenxian.github.io/master/images/bitbug_favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言从最初接触的 ButterKnife 5.0 到后来的 ButterKnife 7.0 大改动，再到如今的 ButterKnife 8.4，ButterKnife也在不断的进步，相对于 ButterKnife 7.0 最新的 ButterKnife 8.4 也有不小的改进，这样本文就重点来介绍一下8.4 的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ButterKnife8的配置及使用">
+<meta property="og:url" content="https://woshishenxian.github.io/2017/01/13/ButterKnife8的配置及使用/index.html">
+<meta property="og:site_name" content="博客-南柯的小屋">
+<meta property="og:description" content="前言从最初接触的 ButterKnife 5.0 到后来的 ButterKnife 7.0 大改动，再到如今的 ButterKnife 8.4，ButterKnife也在不断的进步，相对于 ButterKnife 7.0 最新的 ButterKnife 8.4 也有不小的改进，这样本文就重点来介绍一下8.4 的使用。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-ab6a124d4ee37fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-5d36be7234544c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-dd2afccdc1aa79d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-3ae76339c94feb61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2149115-38e2172736d1b349.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-01-13T09:04:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ButterKnife8的配置及使用">
+<meta name="twitter:description" content="前言从最初接触的 ButterKnife 5.0 到后来的 ButterKnife 7.0 大改动，再到如今的 ButterKnife 8.4，ButterKnife也在不断的进步，相对于 ButterKnife 7.0 最新的 ButterKnife 8.4 也有不小的改进，这样本文就重点来介绍一下8.4 的使用。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2149115-ab6a124d4ee37fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://woshishenxian.github.io/2017/01/13/ButterKnife8的配置及使用/"/>
+
+  <title> ButterKnife8的配置及使用 | 博客-南柯的小屋 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">博客-南柯的小屋</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ButterKnife8的配置及使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-13T17:04:02+08:00" content="2017-01-13">
+              2017-01-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android框架探索/" itemprop="url" rel="index">
+                    <span itemprop="name">android框架探索</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/13/ButterKnife8的配置及使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/ButterKnife8的配置及使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>从最初接触的 ButterKnife 5.0 到后来的 ButterKnife 7.0 大改动，再到如今的 ButterKnife 8.4，ButterKnife也在不断的进步，相对于 ButterKnife 7.0 最新的 ButterKnife 8.4 也有不小的改进，这样本文就重点来介绍一下8.4 的使用。<br><a id="more"></a></p>
+<h4 id="ButterKnife-的添加依赖"><a href="#ButterKnife-的添加依赖" class="headerlink" title="ButterKnife 的添加依赖"></a>ButterKnife 的添加依赖</h4><blockquote>
+<p>ButterKnife 8.4 在编译方面改用 annotationProcessor(编译时注解），这样就需要我们手动添加编译注解器。</p>
+</blockquote>
+<ol>
+<li>首先，在Project的build.grade 中如图添加:<br><img src="http://upload-images.jianshu.io/upload_images/2149115-ab6a124d4ee37fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>接下来，在app的build.gradle中添加声明，并引入依赖。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-5d36be7234544c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/2149115-dd2afccdc1aa79d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+</ol>
+<h4 id="ButterKnife-的使用"><a href="#ButterKnife-的使用" class="headerlink" title="ButterKnife 的使用"></a>ButterKnife 的使用</h4><blockquote>
+<p>ButterKnife 使用形式并没有打的改动，相对于Butterknife 7.0部分注解的名称有做修改。</p>
+</blockquote>
+<p>首先说一下不论是哪个版本的ButterKnife 都需要注意的几个点：</p>
+<ul>
+<li>ButterKnife.bind(this); 的使用一定是在setContentView()之后的；</li>
+<li>不管注解的是对象还是函数方法都不能用private 或者 static 修饰，否则会报错</li>
+</ul>
+<ol>
+<li><p>Activity中 绑定view<br>使用 @BindView 加上一个ID的形式 来注解，即可自动的映射出布局中的相对应的View。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class ExampleActivity extends Activity &#123;</div><div class="line">  @BindView(R.id.title) TextView title;</div><div class="line">  @BindView(R.id.subtitle) TextView subtitle;</div><div class="line">  @BindView(R.id.footer) TextView footer;</div><div class="line"></div><div class="line">  @Override public void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.simple_activity);</div><div class="line">    ButterKnife.bind(this);</div><div class="line">    // TODO Use fields...</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>资源绑定<br>使用@BindBool，@BindColor，@BindDimen，@BindDrawable，@BindInt，@BindString绑定预定义的资源，通过以下形式绑定到其相应的字段。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class ExampleActivity extends Activity &#123;</div><div class="line">  @BindString(R.string.title) String title;</div><div class="line">  @BindDrawable(R.drawable.graphic) Drawable graphic;</div><div class="line">  @BindColor(R.color.red) int red; // int or ColorStateList field</div><div class="line">  @BindDimen(R.dimen.spacer) Float spacer; // int (for pixel size) or float (for exact value) field</div><div class="line">  // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>非Activity绑定<br>还可以通过提供自己的根视图对任意对象执行绑定（以下以Fragment为例）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public class FancyFragment extends Fragment &#123;</div><div class="line">  @BindView(R.id.button1) Button button1;</div><div class="line">  @BindView(R.id.button2) Button button2;</div><div class="line"></div><div class="line">  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) &#123;</div><div class="line">    View view = inflater.inflate(R.layout.fancy_fragment, container, false);</div><div class="line">    ButterKnife.bind(this, view);</div><div class="line">    // TODO Use fields...</div><div class="line">    return view;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>同样这种形式也可以应用在Adapter 中，简化视图的持有形式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public class MyAdapter extends BaseAdapter &#123;</div><div class="line">  @Override public View getView(int position, View view, ViewGroup parent) &#123;</div><div class="line">    ViewHolder holder;</div><div class="line">    if (view != null) &#123;</div><div class="line">      holder = (ViewHolder) view.getTag();</div><div class="line">    &#125; else &#123;</div><div class="line">      view = inflater.inflate(R.layout.whatever, parent, false);</div><div class="line">      holder = new ViewHolder(view);</div><div class="line">      view.setTag(holder);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    holder.name.setText(&quot;John Doe&quot;);</div><div class="line">    // etc...</div><div class="line"></div><div class="line">    return view;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  static class ViewHolder &#123;</div><div class="line">    @BindView(R.id.title) TextView name;</div><div class="line">    @BindView(R.id.job_title) TextView jobTitle;</div><div class="line"></div><div class="line">    public ViewHolder(View view) &#123;</div><div class="line">      ButterKnife.bind(this, view);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>多View绑定</p>
+<ul>
+<li><p>将多个View 绑定到一个List 中  或者 数组也可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@BindViews(&#123; R.id.first_name, R.id.middle_name, R.id.last_name &#125;)</div><div class="line">List&lt;EditText&gt; nameViews;</div></pre></td></tr></table></figure>
+</li>
+<li><p>apply方法,一次性对列表中的所有View执行操作。<br>先来看一下apply方法都提供了那些重载：<br><img src="http://upload-images.jianshu.io/upload_images/2149115-3ae76339c94feb61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>不仅仅有对列表或数组的批量操作，还有对单个视图的操作。<br>下面看一下具体使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">ButterKnife.apply(nameViews, DISABLE);</div><div class="line">ButterKnife.apply(nameViews, ENABLED, false);</div><div class="line">//设置统一操作</div><div class="line">static final ButterKnife.Action&lt;View&gt; DISABLE = new ButterKnife.Action&lt;View&gt;() &#123;</div><div class="line">  @Override public void apply(View view, int index) &#123;</div><div class="line">    view.setEnabled(false);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">static final ButterKnife.Setter&lt;View, Boolean&gt; ENABLED = new ButterKnife.Setter&lt;View, Boolean&gt;() &#123;</div><div class="line">  @Override public void set(View view, Boolean value, int index) &#123;</div><div class="line">    view.setEnabled(value);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<p>由上面实例可以看出，ButterKnife 提供了Action和Setter接口，允许指定简单的行为；其次，Android  Property 成员也可以与apply方法一起使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ButterKnife.apply(nameViews, View.ALPHA, 0.0f);</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>监听器绑定</p>
+<ul>
+<li><p>监听器也可以自动配置到方法上,传入的参数表示监听的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@OnClick(R.id.submit)</div><div class="line">public void submit(View view) &#123;</div><div class="line">  // TODO submit data to server...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>监听器方法的参数是可选的，即可以无需添加参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@OnClick(R.id.submit)</div><div class="line">public void submit() &#123;</div><div class="line">  // TODO submit data to server...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>定义一个特定的类型，它会自动转换，需要注意的是，定义的参数必须是监听的对象或者其父类，否则会转换错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@OnClick(R.id.submit)</div><div class="line">public void sayHi(Button button) &#123;</div><div class="line">  button.setText(&quot;Hello!&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>同样，可以将一个方法配置给多个id,这里也有一点需要注意，传入的参数必须要是各个监听对象共同的父类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@OnClick(&#123; R.id.door1, R.id.door2, R.id.door3 &#125;)</div><div class="line">public void pickDoor(DoorView door) &#123;</div><div class="line">  if (door.hasPrizeBehind()) &#123;</div><div class="line">    Toast.makeText(this, &quot;You win!&quot;, LENGTH_SHORT).show();</div><div class="line">  &#125; else &#123;</div><div class="line">    Toast.makeText(this, &quot;Try again&quot;, LENGTH_SHORT).show();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>自定义View可以通过不指定ID来绑定到自己的监听器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class FancyButton extends Button &#123;</div><div class="line">  @OnClick</div><div class="line">  public void onClick() &#123;</div><div class="line">    // TODO do something!</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>绑定解绑<br><strong> ButterKnife 8.4 相对于 ButterKnife 7.0 添加了解绑机制，要求Fragment在适当的时候进行解绑。</strong><br>Fragment具有与Activity不同的生命周期。 当在onCreateView中绑定Fragment时，需要在onDestroyView中将视图设置为null。 ButterKnife会在bind 时返回一个Unbinder实例。 在适当的生命周期回调中调用其unbind方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public class FancyFragment extends Fragment &#123;</div><div class="line">  @BindView(R.id.button1) Button button1;</div><div class="line">  @BindView(R.id.button2) Button button2;</div><div class="line">  private Unbinder unbinder;</div><div class="line"></div><div class="line">  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) &#123;</div><div class="line">    View view = inflater.inflate(R.layout.fancy_fragment, container, false);</div><div class="line">    unbinder = ButterKnife.bind(this, view);</div><div class="line">    // TODO Use fields...</div><div class="line">    return view;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override public void onDestroyView() &#123;</div><div class="line">    super.onDestroyView();</div><div class="line">    unbinder.unbind();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>可选性绑定<br>在使用过程中，ButterKnife 还考虑到了 绑定时出现绑定目标未找到的情况。默认情况下，未找到会直接抛出异常，如果需要避免抛出异常，ButterKnife也提供了结果方案，只需要 用 @Nullable 来注解 属性，或者使用 @Optional来注解方法即可，使用如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Nullable @BindView(R.id.might_not_be_there) TextView mightNotBeThere;</div><div class="line">@Optional @OnClick(R.id.maybe_missing) void onMaybeMissingClicked() &#123;</div><div class="line">  // TODO ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>ButterKnife.findById</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">View view = LayoutInflater.from(context).inflate(R.layout.thing, null);</div><div class="line">TextView firstName = ButterKnife.findById(view, R.id.first_name);</div><div class="line">TextView lastName = ButterKnife.findById(view, R.id.last_name);</div><div class="line">ImageView photo = ButterKnife.findById(view, R.id.photo);</div></pre></td></tr></table></figure>
+</li>
+<li><p>其他监听器<br>ButterKnife 同时还提供了其他的监听器。<br><img src="http://upload-images.jianshu.io/upload_images/2149115-38e2172736d1b349.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>这里我们以 onItemSelected 为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@OnItemSelected(R.id.list_view)</div><div class="line">void onItemSelected(int position) &#123;</div><div class="line">  // TODO ...</div><div class="line">&#125;</div><div class="line">@OnItemSelected(value = R.id.maybe_missing, callback = NOTHING_SELECTED)</div><div class="line">void onNothingSelected() &#123;</div><div class="line">  // TODO ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>方法的参数是可选的，但同时需要符合 注解参数的要求，不能多参或者出现参数类型不存在的问题，如果出现参数类型相同的情况，方法的参数会从左到右依次匹配。</p>
+</blockquote>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>本文例子 来源于 <a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="external">Butter Knife官网</a>，文中的介绍也主要是根据官网给出的总结，并且加入了个人在使用过程中的一些看法，就算是一份学习笔记吧。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/13/ButterKnife的使用：插件安装/" rel="next" title="ButterKnife的使用：插件安装">
+                <i class="fa fa-chevron-left"></i> ButterKnife的使用：插件安装
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/13/Android开发：聊聊WebView的使用/" rel="prev" title="Android开发：聊聊WebView的使用">
+                Android开发：聊聊WebView的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/13/ButterKnife8的配置及使用/"
+           data-title="ButterKnife8的配置及使用" data-url="https://woshishenxian.github.io/2017/01/13/ButterKnife8的配置及使用/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img1.2345.com/duoteimg/qqTxImg/2013/12/ns/18-024824_754.jpg"
+               alt="南柯的小屋" />
+          <p class="site-author-name" itemprop="name">南柯的小屋</p>
+          <p class="site-description motion-element" itemprop="description">生命不止，折腾不惜。。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/woshishenxian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/2c959b909679/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ButterKnife-的添加依赖"><span class="nav-number">2.</span> <span class="nav-text">ButterKnife 的添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ButterKnife-的使用"><span class="nav-number">3.</span> <span class="nav-text">ButterKnife 的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结："><span class="nav-number">4.</span> <span class="nav-text">总结：</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">南柯的小屋</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VENS/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VENS/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VENS/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"vince"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/VENS/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
